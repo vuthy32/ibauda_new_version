@@ -1,0 +1,23 @@
+<resources>
+
+    <dimen name="size_image_list">125dp</dimen>
+
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
+
+    <dimen name="padding_row_left">10dp</dimen>
+    <dimen name="padding_text_detail">5dp</dimen>
+
+    <dimen name="title_detailHeader">18sp</dimen>
+    <!-- galery columnum-->
+    <integer name="gridtTiem">5</integer>
+
+    <!-- banner size-->
+    <dimen name="bannerSqizeImage">900dp</dimen>
+    <dimen name="bannerSqizeImageH">1000dp</dimen>
+    <dimen name="banner_minSqize">-150dp</dimen>
+    <dimen name="bannerSqize">330dp</dimen>
+
+</resources>

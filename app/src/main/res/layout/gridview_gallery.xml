@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridViewGaller"
+        android:numColumns="@integer/gridtTiem"
+        android:dividerHeight="0dp"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:layout_margin="0dp"
+        android:padding="0dp"/>

@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
+
+    <dimen name="size_image_list">122dp</dimen>
+
+    <dimen name="padding_row_left">10dp</dimen>
+    <dimen name="padding_text_detail">5dp</dimen>
+
+    <dimen name="title_detailHeader">18sp</dimen>
+    <!-- galery columnum-->
+    <integer name="gridtTiem">3</integer>
+
+    <!-- banner size-->
+    <dimen name="bannerSqizeImage">900dp</dimen>
+    <dimen name="bannerSqizeImageH">800dp</dimen>
+    <dimen name="banner_minSqize">-90dp</dimen>
+    <dimen name="bannerSqize">200dp</dimen>
+</resources>

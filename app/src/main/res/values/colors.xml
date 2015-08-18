@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0071ba</color>
+    <!--<color name="colorPrimary">#F50057</color>-->
+    <color name="colorPrimaryDark">#0071ba</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#FF80AB</color>
+    <color name="read_color">#F50057</color>
+    <color name="blue_color">#3cb7fe</color>
+    <color name="card_color">#d9d9d9</color>
+    <color name="fobcolor">#ee0c47</color>
+    <color name="color_row_odd">#f8fbfb</color>
+    <color name="color_row_even">#e5fdff</color>
+    <color name="text_detail">#4f4d4d</color>
+    <color name="color_blue">#0071ba</color>
+    <color name="color_read">#f50000</color>
+
+    <color name="bg_msg_you">#5eb964</color>
+    <color name="bg_msg_from">#98AFC7</color>
+    <color name="bar_dark_color">#CECECE</color>
+    <color name="bar_meduim_color">#DFDEE0</color>
+    <color name="bar_light_color">#F2F2F2</color>
+
+
+    <color name="send_light_color">#8897BF</color>
+    <color name="send_meduim_color">#5D6CA5</color>
+    <color name="send_dark_color">#515F9F</color>
+
+
+    <color name="reversed_color_textdata">#544646</color>
+    <color name="reversed_color_text">#99FFFFF0</color>
+
+</resources>
