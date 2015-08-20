@@ -4,6 +4,7 @@ package info.androidhive.materialdesign.json_url;
  * Created by sunry on 8/12/2015.
  */
 public class UrlJsonLink {
+    public static final String DATABASE_NAME = "iblauda.sqlite";
     public static final String DomainWebsite = "http://iblauda.com/";
 
     public static final String URL_HOME_MOST_VIEW = DomainWebsite+"?c=json&m=getCarListpageWithKey";

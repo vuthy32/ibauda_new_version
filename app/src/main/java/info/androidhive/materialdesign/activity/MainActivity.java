@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     RecyclerView mMyListView;
     DatabaseHandler mydb;
     public static String PACKAGE_NAME;
-
+    String title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,47 +76,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         mMyListView=(RecyclerView) findViewById(R.id.drawerList);
         // display the first navigation drawer view on app launch
         displayView(0);
-        File sdcard = Environment.getExternalStorageDirectory();
-         String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
-        File file = new File(sdcard,"downloadedfile.sqlite");
+
         DatabaseHandler db = new DatabaseHandler(this);
-db.Myqery();
-
-
-
-       // String imagePath = Environment.getExternalStorageDirectory().toString() + "/downloadedfile.jpg"
-//        File sdcard = Environment.getExternalStorageDirectory();
-//        Log.e("sdcard",""+sdcard);
-////Get the text file
-//        File file = new File(sdcard,"downloadedfile.sqlite");
-////Read text from file
-//        StringBuilder text = new StringBuilder();
-//
-//        try {
-//            BufferedReader br = null;
-//            try {
-//                br =  new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF8"));
-//                Log.d("data",""+br);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            String line;
-//
-//            while ((line = br.readLine()) != null) {
-//               // String value = new String(line, "UTF-8");
-//                text.append(line);
-//                text.append('\n');
-//                //text.append("\r\n");
-//                Log.d("line", "" + text);
-//            }
-//            br.close();
-//        }
-//        catch (IOException e) {
-//            //You'll need to add proper error handling here
-//        }
-
-
-
+       db.Myqery();
 
     }
 
@@ -172,7 +134,7 @@ db.Myqery();
     private void displayView(int position) {
         Intent intentActivity;
         Fragment fragment = null;
-        String title = getString(R.string.app_name);
+        title = getString(R.string.app_name);
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
@@ -198,6 +160,11 @@ db.Myqery();
                     this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
                 }
                break;
+            case 3:
+                 title = getString(R.string.title_Login);
+                //fragment = new ContactUsFragment();
+               // title = ContactUsFragment.TAGFragment;
+                break;
             case 4:
                     Log.d("Clear user","Log Out True");
                     SharedPreferences.Editor editorUser = user.edit();
@@ -211,7 +178,7 @@ db.Myqery();
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            //fragmentTransaction.addToBackStack(title);
+            //./fragmentTransaction.addToBackStack(title);
             fragmentTransaction.replace(R.id.container_body, fragment);
             fragmentTransaction.commit();
             // set the toolbar title
@@ -222,38 +189,10 @@ db.Myqery();
     int backButtonCount = 0;
     @Override
     public void onBackPressed() {
-        if(backButtonCount++ >= 2)
-        {
-            super.onBackPressed();
-        }
-        else
-        {
+        if(backButtonCount++ >= 2) {super.onBackPressed();}
+        else {
             Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
             backButtonCount++;
         }
     }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        if (ContactsContract.Intents.SEARCH_SUGGESTION_CLICKED.equals(intent.getAction())) {
-            //handles suggestion clicked query
-            String displayName = getDisplayNameForContact(intent);
-          //  resultText.setText(displayName);
-        } else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            // handles a search query
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.e("Result","Hello"+query);
-            //resultText.setText("should search for query: '" + query + "'...");
-        }
-    }
-    private String getDisplayNameForContact(Intent intent) {
-        Cursor phoneCursor = getContentResolver().query(intent.getData(), null, null, null, null);
-        phoneCursor.moveToFirst();
-        int idDisplayName = phoneCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
-        String name = phoneCursor.getString(idDisplayName);
-        phoneCursor.close();
-        return name;
-    }
-
-
 }

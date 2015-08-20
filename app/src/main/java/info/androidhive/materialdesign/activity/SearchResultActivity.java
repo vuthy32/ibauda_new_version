@@ -39,9 +39,12 @@ public class SearchResultActivity extends AppCompatActivity {
     private  ListView gridviewMostView;
     private   RequestQueue mRequestQueue;
     ImageHomeAdapter mAdapter;
+
     public static final String REQUEST_TAG = "SearchResultActivity";
     ArrayList<ModelHomeFragment> records;
     private String KeyWordSearch;
+
+
     public SearchResultActivity() {
         // Required empty public constructor
     }
@@ -134,7 +137,7 @@ public class SearchResultActivity extends AppCompatActivity {
                         Log.d("JsonAray Respone", response.toString());
                             try {
                                 List<ModelHomeFragment> imageRecords = parse(response);
-                                mAdapter.swapImageRecords(imageRecords);
+                             //   mAdapter.swapImageRecords(imageRecords);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

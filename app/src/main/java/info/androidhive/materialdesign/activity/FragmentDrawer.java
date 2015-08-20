@@ -10,7 +10,9 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -34,7 +36,7 @@ public class FragmentDrawer extends Fragment {
     private static String TAG = FragmentDrawer.class.getSimpleName();
 
     private RecyclerView recyclerView;
-    private ActionBarDrawerToggle mDrawerToggle;
+    private static ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
@@ -43,6 +45,7 @@ public class FragmentDrawer extends Fragment {
   //  private static TypedArray iconItem;
     private FragmentDrawerListener drawerListener;
     static  SharedPreferences user;
+
     public FragmentDrawer() {
 
     }
@@ -77,7 +80,6 @@ public class FragmentDrawer extends Fragment {
             titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labelsLoginSucess);
         }
         // drawer labels
-
     }
 
     @Override
@@ -95,6 +97,12 @@ public class FragmentDrawer extends Fragment {
             public void onClick(View view, int position) {
                 drawerListener.onDrawerItemSelected(view, position);
                 mDrawerLayout.closeDrawer(containerView);
+                Log.e("position", "" + position);
+//                mDrawerToggle.setDrawerIndicatorEnabled(false);
+//               // ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+//                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+
                  }
 
             @Override
@@ -176,6 +184,7 @@ public class FragmentDrawer extends Fragment {
             View child = rv.findChildViewUnder(e.getX(), e.getY());
             if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
                 clickListener.onClick(child, rv.getChildPosition(child));
+                //mDrawerToggle.setDrawerIndicatorEnabled(false);
             }
             return false;
         }
@@ -183,15 +192,10 @@ public class FragmentDrawer extends Fragment {
         @Override
         public void onTouchEvent(RecyclerView rv, MotionEvent e) {
         }
-
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
         }
-
-
     }
-
     public interface FragmentDrawerListener {
         public void onDrawerItemSelected(View view, int position);
     }

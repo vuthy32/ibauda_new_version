@@ -66,9 +66,6 @@ public class ImageHomeAdapter extends ArrayAdapter<ModelHomeFragment> {
 
         // NOTE: You would normally use the ViewHolder pattern here
         NetworkImageView imageView = (NetworkImageView) convertView.findViewById(R.id.imageViewData);
-        TextView carNoxtView = (TextView) convertView.findViewById(R.id.textViewCarNo);
-        TextView carTitle = (TextView)convertView.findViewById(R.id.textViewCarTitle);
-        TextView carFOBTitle = (TextView)convertView.findViewById(R.id.textViewFOB);
 
         Typeface custom_font = Typeface.createFromAsset(mcontext.getAssets(), "fonts/HelveticaNeueCondensedBold.otf");
 

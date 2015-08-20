@@ -2,18 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <!-- Download Button -->
-    <Button android:id="@+id/btnProgressBar"
-        android:layout_width="match_parent"
+
+    <ProgressBar
+        android:layout_width="102dp"
         android:layout_height="wrap_content"
-        android:text="Download File with Progress Bar"
-        android:layout_marginTop="50dip"/>
-
-    <!-- Image view to show image after downloading -->
-    <ImageView android:id="@+id/my_image"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-
+        android:id="@+id/progressBar2"
+        android:progressDrawable="@drawable/circular_progressbar"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.11" />
 </LinearLayout>

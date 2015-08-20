@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -54,16 +55,21 @@ import info.androidhive.materialdesign.FragmentDetial.FragmentDetailCar;
 import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
 import info.androidhive.materialdesign.R;
 import info.androidhive.materialdesign.adapter.ImageHomeAdapter;
+import info.androidhive.materialdesign.adapter.ImageHomeAdapterSqlite;
 import info.androidhive.materialdesign.json_url.UrlJsonLink;
 
 import static com.google.android.gms.internal.zzhl.runOnUiThread;
 
 public class HomeFragment extends Fragment{
+    DatabaseHandler mydb;
     private  ListView gridviewMostView;
     private   RequestQueue mRequestQueue;
     ImageHomeAdapter mAdapter;
     public static final String REQUEST_TAG = "HomeFragmentRequestActivity";
     ArrayList<ModelHomeFragment> records;
+    private List<ModelHomeFragment> ArarryTestMake = new ArrayList<ModelHomeFragment>();
+    //***************************************************************
+    ImageHomeAdapterSqlite mAdapterSqlite;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -82,51 +88,63 @@ public class HomeFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new ImageHomeAdapter(getActivity());
+        //*****************************SERVER DATA*************************8
+//        mAdapter = new ImageHomeAdapter(getActivity());
+////        //  Log.e("Adapter", ""+records.size());
+//        gridviewMostView = (ListView) getActivity().findViewById(R.id.listViewHome);
+//        // set adapter grideview
+//        gridviewMostView.setAdapter(mAdapter);
+        //*****************************SERVER DATA*************************8
 
-
-        //  Log.e("Adapter", ""+records.size());
-        gridviewMostView = (ListView) getActivity().findViewById(R.id.listViewHome);
-        // set adapter grideview
-        gridviewMostView.setAdapter(mAdapter);
         if (savedInstanceState==null){
         Log.d("savedInstanceState","Null");
         }else{
             Log.d("savedInstanceState","Not Null");
         }
+        mydb = new DatabaseHandler(getActivity());
+        String carFob;
+       // mydb.Myqery();
+        List<ModelHomeFragment> contactsCars = mydb.getAllCarData();
+        for (ModelHomeFragment cn : contactsCars){
+            ModelHomeFragment PhotoCar = new ModelHomeFragment();
 
-    }
+           // String title = cn.getTitle();
+             //   Log.e("cn.getCarNo()", "" + cn.getCarNo());
+            PhotoCar.setImageUrl(cn.getImageUrl());
 
+            PhotoCar.setCarNo("NO: " + cn.getCarNo());
 
-    public void HomJson(){
-        // prepare the Request as JSON
-        JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, UrlJsonLink.URL_HOME_MOST_VIEW, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                     // display JSON response
-                        try {
-                                List<ModelHomeFragment> imageRecords = parse(response);
-                               if (imageRecords.size()>0){
-                                   mAdapter.swapImageRecords(imageRecords);
-                               }
+            PhotoCar.setTitle(cn.getTitle());
 
-                            }catch(JSONException e) {
-                                Toast.makeText(getActivity(), "Unable to parse data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        Log.d("Response", response.toString());
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Error.Response", error.getMessage());
+            PhotoCar.setIdexID(cn.getIdexID());
+
+            PhotoCar.setCityCar(cn.getCityCar());
+
+            if (cn.getCarFob().equals("0")){
+                carFob = "FOB: Ask For Price";
+            }else{
+                int numberPrice = Integer.parseInt(cn.getCarFob().toString());
+                DecimalFormat dfmal = new DecimalFormat("#,###");
+                String resultPrice = dfmal.format(numberPrice);
+                carFob = "FOB: "+resultPrice+" "+"(car_fob_currency)";
             }
-        });
-        mJsonObjectRequest.setTag(REQUEST_TAG);
-// add it to the RequestQueue
-        mRequestQueue.add(mJsonObjectRequest);
+            PhotoCar.setCarFob(carFob);
+
+            PhotoCar.setStatusNew(cn.getStatusNew());
+            PhotoCar.setStatusReserved(cn.getStatusReserved());
+            ArarryTestMake.add(PhotoCar);
+        }
+        mAdapterSqlite = new ImageHomeAdapterSqlite(getActivity(),ArarryTestMake);
+//        //  Log.e("Adapter", ""+records.size());
+        gridviewMostView = (ListView) getActivity().findViewById(R.id.listViewHome);
+        // set adapter grideview
+        gridviewMostView.setAdapter(mAdapterSqlite);
     }
+
+
+
+
+//****************************Json Server Object***********************************************
     private List<ModelHomeFragment> parse(JSONObject json) throws JSONException {
              records = new ArrayList<ModelHomeFragment>();
         String carFob;
@@ -158,11 +176,11 @@ public class HomeFragment extends Fragment{
             }
             return records;
         }
-
+//*************************************************************************************************
     @Override
     public void onStart() {
         super.onStart();
-        startParsingTask();
+       // startParsingTask();
      //  Log.e("Adapter", "" + records.size());
     }
 
@@ -201,7 +219,7 @@ public class HomeFragment extends Fragment{
                               //  getActivity().getLayoutInflater().inflate(R.layout.gride_view_layout, ContentFrameLayout);
                                 receivedJSONObject.getString("car_list");
                                 List<ModelHomeFragment> imageRecords = parse(receivedJSONObject);
-                                mAdapter.swapImageRecords(imageRecords);
+                               // mAdapter.swapImageRecords(imageRecords);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -267,5 +285,36 @@ public class HomeFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("HomeActivity", "Resualt");
         getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+
+    public void HomeSqlite() {
+//        // prepare the Request as JSON
+//        JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(
+//                Request.Method.GET, UrlJsonLink.URL_HOME_MOST_VIEW, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                     // display JSON response
+//                        try {
+//                                List<ModelHomeFragment> imageRecords = parse(response);
+//                               if (imageRecords.size()>0) {
+//                                   mAdapter.swapImageRecords(imageRecords);
+//                               }
+//                            }catch(JSONException e) {
+//                                Toast.makeText(getActivity(), "Unable to parse data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        Log.d("Response", response.toString());
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("Error.Response", error.getMessage());
+//            }
+//        });
+//        mJsonObjectRequest.setTag(REQUEST_TAG);
+//// add it to the RequestQueue
+//        mRequestQueue.add(mJsonObjectRequest);
+//    }
     }
 }

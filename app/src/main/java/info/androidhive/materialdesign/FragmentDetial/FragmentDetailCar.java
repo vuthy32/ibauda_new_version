@@ -65,8 +65,8 @@ public class FragmentDetailCar extends AppCompatActivity {
         setContentView(R.layout.detail_layout);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-//        headText=(TextView)findViewById(R.id.toolbar_title);
-//        headText.setText(R.string.header_detail);
+        headText=(TextView)findViewById(R.id.toolbar_title);
+        headText.setText(R.string.header_detail);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -150,32 +150,32 @@ public class FragmentDetailCar extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager)getApplication().getSystemService(Context.SEARCH_SERVICE);
-
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    Intent intentSearch = new Intent(FragmentDetailCar.this,SearchResultActivity.class);
-                    intentSearch.putExtra("search_data",query);
-                    startActivity(intentSearch);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    Log.e("sumbite",""+query);
-                    return true;
-                }
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-            });
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-        }
+//        SearchManager searchManager = (SearchManager)getApplication().getSystemService(Context.SEARCH_SERVICE);
+//
+//        SearchView searchView = null;
+//        if (searchItem != null) {
+//            searchView = (SearchView) searchItem.getActionView();
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    Intent intentSearch = new Intent(FragmentDetailCar.this,SearchResultActivity.class);
+//                    intentSearch.putExtra("search_data",query);
+//                    startActivity(intentSearch);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    Log.e("sumbite",""+query);
+//                    return true;
+//                }
+//                @Override
+//                public boolean onQueryTextChange(String newText) {
+//                    return false;
+//                }
+//            });
+//        }
+//        if (searchView != null) {
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+//        }
 
         return true;
     }
