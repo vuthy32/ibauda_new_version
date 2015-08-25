@@ -25,6 +25,7 @@ import info.androidhive.materialdesign.adapter.GalleryGridViewAdapter;
 public class FragmentChildDetailGallery extends Fragment {
 GalleryGridViewAdapter galleryGridViewAdapter;
     DatabaseHandler mydb;
+    String IndexID;
 	public FragmentChildDetailGallery(){}
 	
 	@Override
@@ -44,32 +45,43 @@ GalleryGridViewAdapter galleryGridViewAdapter;
         int ArraySize = gallerData.getInt("Arraysize", 0);
         GridView gridViewGallery = (GridView)getActivity().findViewById(R.id.gridViewGaller);
         List<ModelGallery> arrayListItems = new ArrayList<ModelGallery>();
-//        for (int g=0; g<ArraySize;g++){
-//            ModelGallery photoData = new ModelGallery();
-//            photoData.setThumbImage(gallerData.getString("ImageThumb", null));
-//            arrayListItems.add(photoData);
-//            Log.e("DADD", "" + gallerData.getString("ImageThumb", null));
-//        }
+
         SharedPreferences CheckCarID = getActivity().getSharedPreferences("CheckCarID", Context.MODE_PRIVATE);
-        String IndexID = CheckCarID.getString("indexID", null);
+        IndexID = CheckCarID.getString("indexID", null);
         Log.e("IndexID",""+IndexID);
+
        SharedPreferences.Editor editorImage = gallerData.edit();
         List<ModelHomeFragment> contactsCarPhoto = mydb.getGalleryPhoto(IndexID);
         for (ModelHomeFragment cnP : contactsCarPhoto){
+
             ModelGallery photoData = new ModelGallery();
             photoData.setThumbImage(cnP.getImageUrl());
             arrayListItems.add(photoData);
+            editorImage.putInt("Arraysize", arrayListItems.size());
+            editorImage.commit();
+
         }
         galleryGridViewAdapter = new GalleryGridViewAdapter(getActivity(),arrayListItems);
         gridViewGallery.setAdapter(galleryGridViewAdapter);
         gridViewGallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences CheckCarID = getActivity().getSharedPreferences("CheckCarID", 0);
+                SharedPreferences.Editor userEditer=CheckCarID.edit();
+                userEditer.putString("indexID",IndexID);
+                userEditer.commit();
                 Intent gridGallery =new Intent(getActivity(),ActivitySwipImage.class);
-                startActivityForResult(gridGallery,12);
+                gridGallery.addFlags(gridGallery.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(gridGallery);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         Log.d("ArraySize",""+ArraySize);
     }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.e("Animation","onActivityResult()"+data.getStringExtra("data1"));
+//        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//
+//    }
 }

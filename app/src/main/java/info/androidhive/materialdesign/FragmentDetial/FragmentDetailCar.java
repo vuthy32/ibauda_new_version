@@ -102,10 +102,12 @@ public class FragmentDetailCar extends AppCompatActivity {
             //*******array thumb image for gallery***************
             ArrayList<String> myArrayList = new ArrayList<String>();
             //************ShareReference Image Data*************
-            SharedPreferences gallerData = getSharedPreferences("GalleryImage", 0);
+            SharedPreferences gallerData = getSharedPreferences("GalleryImage", Context.MODE_PRIVATE);
             editorImage = gallerData.edit();
             List<ModelHomeFragment> contactsCarPhoto = mydb.getGalleryPhoto(IndexID);
+            int i=0;
             for (ModelHomeFragment cnP : contactsCarPhoto){
+                i++;
                 myArrayList.add(cnP.getImageUrl());
                  if (cnP.getSortPhoto().equals("1")){
                      url=cnP.getPhotoUrl();
@@ -114,10 +116,8 @@ public class FragmentDetailCar extends AppCompatActivity {
                      if (cnP.getSortPhoto().equals("2"))
                          url=cnP.getPhotoUrl();
                  }
-                editorImage.putInt("Arraysize", myArrayList.size());
-               // editorImage.putString("ImageThumb", cnP.getImageUrl());
-               // editorImage.putString("ImagePhoto",cnP.getImageUrl());
-                editorImage.commit();
+                Log.e("i=",""+i);
+
             }
             NetworkImageView thumbNail = (NetworkImageView)findViewById(R.id.detail_headerImg);
 
@@ -485,10 +485,10 @@ public class FragmentDetailCar extends AppCompatActivity {
         mRequestQueue.add(mJsonArrayDetailgallery);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("HomeActivity", "Resualt");
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Log.e("HomeActivity", "Resualt");
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//    }
 }

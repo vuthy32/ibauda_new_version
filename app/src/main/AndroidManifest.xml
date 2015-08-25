@@ -55,7 +55,7 @@
         <!-- ChatUser Activity-->
         <activity android:name=".activity.ListChatUser"
             android:windowSoftInputMode="stateHidden">
-        </activity>
+        </activity>TouchImageView
         <!-- ChatActivtyt Activity-->
         <activity android:name=".activity.ChatActivity"
             android:windowSoftInputMode="stateHidden">

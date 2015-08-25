@@ -1,49 +1,64 @@
 package info.androidhive.materialdesign.FragmentDetial;
 
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
+
 import info.androidhive.materialdesign.R;
 import info.androidhive.materialdesign.activity.DatabaseHandler;
+import info.androidhive.materialdesign.adapter.ViewPagerAdapter;
 
 /**
  * Created by softbloom on 6/5/2015.
  */
 public class ActivitySwipImage extends AppCompatActivity {
-    DatabaseHandler db;
+    DatabaseHandler mydb;
     ViewPager mViewPager;
+    ArrayList<ModelHomeFragment> myArrayList = new ArrayList<ModelHomeFragment>();
     private ArrayList<HashMap<String, String>> arrayItems = new ArrayList<HashMap<String, String>>();
-    JSONArray GalerTCarsPhoto=null;
-    String CarID;
-    TextView txtDone;
     private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle s){
         super.onCreate(s);
-        db = new DatabaseHandler(this);
+        mydb = new DatabaseHandler(this);
         setContentView(R.layout.layout_swipe);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-//		headText=(TextView)findViewById(R.id.toolbar_title);
-//		headText.setText("");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences CheckCarID = this.getSharedPreferences("CheckCarID", Context.MODE_PRIVATE);
+        String IndexID = CheckCarID.getString("indexID", null);
+        Log.e("IndexID", "" + IndexID);
+        HashMap<String,String> listImage;
+        List<ModelHomeFragment> contactsCarPhoto = mydb.getGalleryPhoto(IndexID);
+        for (ModelHomeFragment cnP : contactsCarPhoto){
+            listImage = new HashMap<String, String>();
+            listImage.put("photo_url",cnP.getPhotoUrl());
+            Log.e("Photo232",cnP.getPhotoUrl());
+            arrayItems.add(listImage);
+        }
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.ImageswipePager);
+        // Pass results to ViewPagerAdapter Class
+        ViewPagerAdapter adaptera = new ViewPagerAdapter(ActivitySwipImage.this,arrayItems);
+        viewPager.setAdapter(adaptera);
+
 
     }
 
