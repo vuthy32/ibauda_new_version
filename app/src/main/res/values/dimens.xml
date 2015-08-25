@@ -12,11 +12,13 @@
 
     <dimen name="title_detailHeader">18sp</dimen>
     <!-- galery columnum-->
-    <integer name="gridtTiem">3</integer>
+    <integer name="gridtTiem">4</integer>
 
     <!-- banner size-->
     <dimen name="bannerSqizeImage">900dp</dimen>
     <dimen name="bannerSqizeImageH">800dp</dimen>
     <dimen name="banner_minSqize">-90dp</dimen>
     <dimen name="bannerSqize">200dp</dimen>
+
+    <dimen name="gridwieItem">96dp</dimen>
 </resources>

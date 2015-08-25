@@ -97,8 +97,6 @@ public class FragmentDetailCar extends AppCompatActivity {
             SharedPreferences CheckCarID = this.getSharedPreferences("CheckCarID", Context.MODE_PRIVATE);
             String IndexID = CheckCarID.getString("indexID", null);
                 Log.e("IndexID",""+IndexID);
-            //*******array photo image for swip***************
-            ArrayList<String> myArrayListSwip = new ArrayList<String>();
             //*******array thumb image for gallery***************
             ArrayList<String> myArrayList = new ArrayList<String>();
             //************ShareReference Image Data*************
@@ -116,11 +114,9 @@ public class FragmentDetailCar extends AppCompatActivity {
                      if (cnP.getSortPhoto().equals("2"))
                          url=cnP.getPhotoUrl();
                  }
-                Log.e("i=",""+i);
-
+                Log.e("i=", "" + i);
             }
             NetworkImageView thumbNail = (NetworkImageView)findViewById(R.id.detail_headerImg);
-
             Resources res = getApplication().getResources();
             thumbNail.getLayoutParams().width=res.getDimensionPixelSize(R.dimen.bannerSqizeImage);
             thumbNail.getLayoutParams().height=res.getDimensionPixelSize(R.dimen.bannerSqizeImageH);
@@ -277,19 +273,12 @@ public class FragmentDetailCar extends AppCompatActivity {
     public void onBackPressed() {
             this.finish();
             super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             editorImage.clear();
     }
-    //***************Sqlite*********************8
-    public void getDetailSqltie(String IndIDCar){
-        dialogprocess = new ProgressDialog(FragmentDetailCar.this);
-        dialogprocess.setMessage("Please wait");
-        dialogprocess.setCancelable(false);
-        dialogprocess.show();
-
-    }
+    //***************Sqlite*********************
     public void getDetail(String IndIDCar){
         dialogprocess = new ProgressDialog(FragmentDetailCar.this);
-
         dialogprocess.setMessage("Please wait");
         dialogprocess.setCancelable(false);
         dialogprocess.show();
@@ -485,10 +474,5 @@ public class FragmentDetailCar extends AppCompatActivity {
         mRequestQueue.add(mJsonArrayDetailgallery);
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Log.e("HomeActivity", "Resualt");
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-//    }
+
 }

@@ -20,4 +20,5 @@
     <dimen name="banner_minSqize">-150dp</dimen>
     <dimen name="bannerSqize">330dp</dimen>
 
+    <dimen name="gridwieItem">100dp</dimen>
 </resources>

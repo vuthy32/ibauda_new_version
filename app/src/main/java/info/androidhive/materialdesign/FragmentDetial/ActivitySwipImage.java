@@ -65,6 +65,9 @@ public class ActivitySwipImage extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         this.finish();
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        this.finish();
         return;
     }
     @Override
@@ -76,7 +79,7 @@ public class ActivitySwipImage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                ActivitySwipImage.this.finish();
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

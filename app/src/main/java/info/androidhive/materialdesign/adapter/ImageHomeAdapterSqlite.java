@@ -101,8 +101,6 @@ public class ImageHomeAdapterSqlite extends BaseAdapter {
             txtSaleOrReversed.setBackgroundResource(R.color.reversed_color_text);
             txtSaleOrReversed.setText(mRecords.getStatusReserved());
         }
-
-
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,11 +110,9 @@ public class ImageHomeAdapterSqlite extends BaseAdapter {
                 userEditer.putString("indexID",mRecords.getIdexID());
                 userEditer.commit();
                 activity.startActivity(toDetailActivity);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-
-
-
         return convertView;
     }
 

@@ -16,8 +16,8 @@
         android:background="@color/color_blue">
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/thumbnail_gridview"
-            android:layout_width="95dp"
-            android:layout_height="95dp"
+            android:layout_width="@dimen/gridwieItem"
+            android:layout_height="@dimen/gridwieItem"
             android:background="@drawable/thumb_bg"
             android:layout_margin="3dp"/>
     </LinearLayout>
