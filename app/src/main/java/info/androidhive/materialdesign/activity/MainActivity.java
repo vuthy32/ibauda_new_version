@@ -55,10 +55,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PACKAGE_NAME = getApplicationContext().getPackageName();
-
         user = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         member_id = user.getString("member_id", "");
-
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -147,13 +145,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    public void onDrawerItemSelected(View view, int position) {
-//        Toast.makeText(this, "" + view, Toast.LENGTH_SHORT).show();
-//        displayView(position);
-//    }
-
     private void displayView(final int position) {
         Intent intentActivity;
         Fragment fragment = null;

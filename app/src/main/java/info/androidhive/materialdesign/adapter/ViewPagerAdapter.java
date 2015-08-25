@@ -65,7 +65,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 			imageLoader = AppController.getInstance().getImageLoader();
 		thumbNail_slide = (TouchImageView) convertView.findViewById(R.id.image_slide);
 		new ImageDownloaderTask(thumbNail_slide).execute(resultp_slide.get("photo_url"));
-		//thumbNail_slide.setImageUrl(resultp_slide.get("photo_url"), imageLoader);
+		//thumbNail_slide.setim(resultp_slide.get("photo_url"), imageLoader);
 		((ViewPager) container).addView(convertView);
 		return convertView;
 
@@ -97,9 +97,10 @@ public class ViewPagerAdapter extends PagerAdapter {
 				if (thumbNail_slide!=null){
 					thumbNail_slide.setImageBitmap(bitmap);
 				}else{
-					thumbNail_slide.setImageResource(R.drawable.thumb_bg);
+					thumbNail_slide.setImageResource(R.drawable.detail_placeholder);
 				}
 			}
+
 			super.onPostExecute(bitmap);
 		}
 	}

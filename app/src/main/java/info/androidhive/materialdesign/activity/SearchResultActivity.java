@@ -126,10 +126,12 @@ public class SearchResultActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        this.finish();
+    }
 //    private List<ModelHomeFragment> parse(JSONArray json) throws JSONException {
 //        records = new ArrayList<ModelHomeFragment>();
 //        String carFob;

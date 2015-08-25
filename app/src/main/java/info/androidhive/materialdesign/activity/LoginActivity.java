@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public LoginActivity() {
         // Required empty public constructor
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,21 +54,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         RegisterTxt = (TextView)findViewById(R.id.register_now);
         RegisterTxt.setOnClickListener(this);
-
         // defin Button Login
         ButtonLogin =(Button)findViewById(R.id.btn_login);
         ButtonLogin.setOnClickListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             onBackPressed();
             return true;

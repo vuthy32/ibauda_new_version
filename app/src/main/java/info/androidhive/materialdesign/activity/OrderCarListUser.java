@@ -1,5 +1,6 @@
 package info.androidhive.materialdesign.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.materialdesign.FragmentDetial.FragmentDetailCar;
+import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
 import info.androidhive.materialdesign.JsonModel.OrderModel;
 import info.androidhive.materialdesign.R;
 import info.androidhive.materialdesign.adapter.MyOrderAdapter;
@@ -47,7 +49,7 @@ public class OrderCarListUser extends AppCompatActivity {
 	private Toolbar mToolbar;
 	private TextView headText;
 
-    List<OrderModel> listOrder;
+    List<ModelHomeFragment> listOrder;
 
     private ListView orderlistview;
     private MyOrderAdapter myOrderAdapter;
@@ -84,6 +86,14 @@ public class OrderCarListUser extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        this.finish();
+        return;
+    }
 
     private class MyCarOrder extends AsyncTask<String, String, JSONObject> {
 		private ProgressDialog nDialog;
@@ -115,29 +125,33 @@ public class OrderCarListUser extends AppCompatActivity {
 
             try {
 
-                listOrder = new ArrayList<OrderModel>();
+                listOrder = new ArrayList<ModelHomeFragment>();
 				JSONArray response = json.getJSONArray("cars");
 				for (int i = 0; i < response.length(); i++) {
 					try {
-                       OrderModel OrderList = new OrderModel();
+                        ModelHomeFragment PhotoCar = new ModelHomeFragment();
 						JSONObject obj = response.getJSONObject(i);
 
-                        OrderList.setInDexID(obj.getString("idx"));
-                        OrderList.setThumbImage(obj.getString("image_name"));
-                        OrderList.setCountCity(obj.getString("country") + "," + obj.getString("car_city"));
-
-                        OrderList.setCarNoStr("NO:" + obj.getString("car_stock_no"));
-                        if (obj.getString("car_fob_cost").equals("0")){
-                            OrderList.setCarPrice("FOB: ASK");
-                        }else {
+                        String carFob;
+                       Log.e("dafsd,",obj.getString("image_name"));
+                        PhotoCar.setImageUrl(obj.getString("image_name"));
+                        PhotoCar.setCarNo("NO: " + obj.getString("car_stock_no"));
+                        PhotoCar.setTitle(obj.getString("car_make") + " " + obj.getString("car_model") + " " + obj.getString("car_year_start"));
+                        PhotoCar.setIdexID(obj.getString("idx"));
+                        PhotoCar.setCityCar(obj.getString("country") + " " + obj.getString("car_city"));
+                        if (obj.getString("car_fob_cost").equals("0") || obj.getString("car_fob_cost").equals("")){
+                            carFob = "FOB: Ask For Price";
+                        }else{
                             int numberPrice = Integer.parseInt(obj.getString("car_fob_cost").toString());
                             DecimalFormat dfmal = new DecimalFormat("#,###");
                             String resultPrice = dfmal.format(numberPrice);
-                            OrderList.setCarPrice("FOB: "+resultPrice + " " + obj.getString("car_fob_currency"));
+                            carFob = "FOB: "+resultPrice+""+obj.getString("car_fob_currency");
                         }
-                        OrderList.setTitleCar(obj.getString("car_make") + " " + obj.getString("car_model") + " " + obj.getString("car_year_start"));
-						Log.e("image_name", "" + obj.getString("image_name"));
-                        listOrder.add(OrderList);
+                        PhotoCar.setCarFob(carFob);
+//                        PhotoCar.setStatusNew(obj.getString("created_status"));
+//                        PhotoCar.setStatusReserved(obj.getString("icon_status"));
+
+                        listOrder.add(PhotoCar);
 
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -159,6 +173,7 @@ public class OrderCarListUser extends AppCompatActivity {
         	orderlistview = (ListView) findViewById(R.id.listView);
             myOrderAdapter = new MyOrderAdapter(OrderCarListUser.this, listOrder);
 			orderlistview.setAdapter(myOrderAdapter);
+
             registerForContextMenu(orderlistview);
             myOrderAdapter.notifyDataSetChanged();
 			orderlistview.setOnItemClickListener(new OnItemClickListener() {
@@ -174,7 +189,7 @@ public class OrderCarListUser extends AppCompatActivity {
 		                    new DialogInterface.OnClickListener() {
 		                        public void onClick(DialogInterface dialog, int which) {
                                     getPositionID = position;
-                                    IndeXID = listOrder.get(position).getInDexID();
+                                    IndeXID = listOrder.get(position).getIdexID();
                                               new ProcessCancelOrder().execute();
 		                                       dialog.cancel();
 		                        }
@@ -186,11 +201,12 @@ public class OrderCarListUser extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 SharedPreferences CheckCarID = getSharedPreferences("CheckCarID", 0);
                                 SharedPreferences.Editor userEditer=CheckCarID.edit();
-                                userEditer.putString("indexID",listOrder.get(position).getInDexID());
+                                userEditer.putString("indexID",listOrder.get(position).getIdexID());
                                 userEditer.commit();
                                 Intent todetail = new Intent(OrderCarListUser.this, FragmentDetailCar.class);
                                 todetail.putExtra("IDX", IndeXID);
                                 startActivity(todetail);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 dialog.cancel();
 
 
@@ -243,6 +259,7 @@ public class OrderCarListUser extends AppCompatActivity {
 
             }
             
+            @SuppressLint("LongLogTag")
             @Override
             protected void onPostExecute(JSONObject json_cancel) {
                 String result;

@@ -18,15 +18,16 @@ import java.util.List;
 
 import info.androidhive.materialdesign.AppController.AppController;
 import info.androidhive.materialdesign.JsonModel.ModelGallery;
+import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
 import info.androidhive.materialdesign.JsonModel.OrderModel;
 import info.androidhive.materialdesign.R;
 
 public class MyOrderAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
-    private List<OrderModel> arrayItems;
+    private List<ModelHomeFragment> arrayItems;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-    public MyOrderAdapter(Activity activity, List<OrderModel> arrayItems) {
+    public MyOrderAdapter(Activity activity, List<ModelHomeFragment> arrayItems) {
         this.activity = activity;
         this.arrayItems = arrayItems;
     }
@@ -48,35 +49,51 @@ public class MyOrderAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final  ModelHomeFragment mRecords = arrayItems.get(position);
+
         if (inflater == null)
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
             convertView = inflater.inflate(R.layout.cutome_list_item, null);
-        if (imageLoader == null)
-            imageLoader = AppController.getInstance().getImageLoader();
-        NetworkImageView thumbNail = (NetworkImageView) convertView
-                .findViewById(R.id.imageViewData);
-        Typeface custom_font = Typeface.createFromAsset(activity.getAssets(), "fonts/HelveticaNeueCondensedBold.otf");
 
-        final OrderModel  m = arrayItems.get(position);
-        thumbNail.setImageUrl(m.getThumbImage(), imageLoader);
-        Log.d("Hello", m.getThumbImage());
-        TextView titleCar = (TextView)convertView.findViewById(R.id.textViewTitle);
-        titleCar.setText(m.getTitleCar());
-        titleCar.setTypeface(custom_font);
+        NetworkImageView imageView = (NetworkImageView) convertView.findViewById(R.id.imageViewData);
+
+        Typeface custom_font = Typeface.createFromAsset(activity.getAssets(), "fonts/HelveticaNeueCondensedBold.otf");
+        imageView.setImageUrl(mRecords.getImageUrl(), imageLoader);
 
         TextView carNo = (TextView)convertView.findViewById(R.id.textViewNo);
-        carNo.setText(m.getCarNoStr());
+        carNo.setText(mRecords.getCarNo());
         carNo.setTypeface(custom_font);
 
+        TextView titleCar = (TextView)convertView.findViewById(R.id.textViewTitle);
+        titleCar.setText(mRecords.getTitle());
+        titleCar.setTypeface(custom_font);
+        Log.e("InexCar", mRecords.getIdexID());
+        Log.e("getCarFob",mRecords.getCarFob());
+        // Log.e("InexCar",mRecords.ge());
+
         TextView CountryCity = (TextView)convertView.findViewById(R.id.textViewContryCity);
-        CountryCity.setText(m.getCountCity());
+        CountryCity.setText(mRecords.getCityCar());
         CountryCity.setTypeface(custom_font);
 
         TextView carPrice = (TextView)convertView.findViewById(R.id.textViewPrice);
-        carPrice.setText(m.getCarPrice());
+        carPrice.setText(mRecords.getCarFob());
         carPrice.setTypeface(custom_font);
+        TextView txt_newstatus = (TextView)convertView.findViewById(R.id.txtNewStatus);
+        Log.e("Records",mRecords.getStatusNew()+","+(mRecords.getStatusReserved()));
+//        if(mRecords.getStatusNew().equals("new")){
+  //          txt_newstatus.setVisibility(View.VISIBLE);
+//        }else{
+            txt_newstatus.setVisibility(View.INVISIBLE);
+//        }
+        TextView txtSaleOrReversed = (TextView)convertView.findViewById(R.id.txtReserved);
+//        if(mRecords.getStatusReserved().equals("sale")){
+            txtSaleOrReversed.setVisibility(View.INVISIBLE);
+//        }else{
+////            txtSaleOrReversed.setBackgroundResource(R.color.reversed_color_text);
+//            txtSaleOrReversed.setText(mRecords.getStatusReserved());
+//        }
 
         return convertView;
     }
