@@ -21,12 +21,19 @@
     </RelativeLayout>
 
 
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/drawerList"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/nav_header_container"-->
+        <!--android:layout_marginTop="15dp" />-->
+    <ListView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nav_header_container"
-        android:layout_marginTop="15dp" />
-
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:dividerHeight="0.20dp"
+        android:layout_below="@+id/nav_header_container" />
 
 </RelativeLayout>

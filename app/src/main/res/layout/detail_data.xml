@@ -35,7 +35,7 @@
                     android:id="@+id/txt_title_header"
                     android:layout_weight="0.65"
                     android:singleLine="true"
-                    android:text="Hello sdfsdfa" />
+                    android:text="Hello Cambodai" />
 
                 <View
                     style="@style/Divider"
@@ -499,7 +499,7 @@
                         android:background="@color/textColorPrimary">
                         <TextView
                             android:textStyle="bold"
-                            android:text="@string/car_status_str"
+                            android:text="@string/car_seat"
                             android:layout_column="0"
                             android:textColor="#fd060a2a"
                             android:layout_marginLeft="@dimen/padding_row_left"
@@ -643,20 +643,21 @@
                         android:textColor="@color/textColorPrimary"
                         android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btnChat"
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_toLeftOf="@+id/btnvideoCall"
-                        android:background="@color/colorPrimary"
-                        android:gravity="center"
-                        android:paddingLeft="30sp"
-                        android:text="@string/nav_item_chat"
-                        android:layout_marginLeft="5dp"
-                        android:textColor="@color/textColorPrimary"
-                        android:textStyle="bold" />
+                    <!--<Button-->
+                        <!-- -->
+                        <!--android:id="@+id/btnChat"-->
+                        <!--style="?android:attr/buttonStyleSmall"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_toLeftOf="@+id/btnvideoCall"-->
+                        <!--android:background="@color/colorPrimary"-->
+                        <!--android:gravity="center"-->
+                        <!--android:paddingLeft="30sp"-->
+                        <!--android:text="@string/nav_item_chat"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:textColor="@color/textColorPrimary"-->
+                        <!--android:textStyle="bold" />-->
                 </TableRow>
             </TableLayout>
 

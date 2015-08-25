@@ -9,6 +9,8 @@
     <string name="nav_item_chat">Chat</string>
     <string name="nav_item_login">Login</string>
     <string name="nav_item_logout">Log out</string>
+
+    <string name="menu_contact_us">Contact Us</string>
     <!-- navigation drawer item labels none login  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
@@ -50,6 +52,29 @@
         <item>@drawable/ic_car</item>
     </integer-array>
 
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item >Home</item>
+        <item >My Cars</item>
+        <item >Chat</item>
+        <item >Login</item>
+        <item >Setting</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_car</item>
+    </array>
+
+
+
     <!-- iblauda str-->
     <string name="register_now">Register now</string>
     <string name="register">Register</string>
@@ -88,6 +113,8 @@
     <string name="mileage_str">MILEAGE</string>
     <string name="fuel_str">FUEL</string>
     <string name="color_str">COLOR</string>
+    <string name="car_seat">SEATS</string>
+
     <string name="status_str">STATUS</string>
     <string name="body_type_str">BODY TYPE</string>
     <string name="driver_type_str">DRIVE TYPE</string>

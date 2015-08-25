@@ -55,7 +55,7 @@ public class ImageHomeAdapterSqlite extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ModelHomeFragment mRecords = arrayItems.get(position);
+      final  ModelHomeFragment mRecords = arrayItems.get(position);
 
         if (inflater == null)
             inflater = (LayoutInflater) activity
@@ -77,7 +77,7 @@ public class ImageHomeAdapterSqlite extends BaseAdapter {
         titleCar.setTypeface(custom_font);
         Log.e("InexCar", mRecords.getIdexID());
         Log.e("getCarFob",mRecords.getCarFob());
-       // Log.e("InexCar",mRecords.ge());
+        // Log.e("InexCar",mRecords.ge());
 
         TextView CountryCity = (TextView)convertView.findViewById(R.id.textViewContryCity);
         CountryCity.setText(mRecords.getCityCar());
@@ -86,33 +86,34 @@ public class ImageHomeAdapterSqlite extends BaseAdapter {
         TextView carPrice = (TextView)convertView.findViewById(R.id.textViewPrice);
         carPrice.setText(mRecords.getCarFob());
         carPrice.setTypeface(custom_font);
-//        TextView txt_newstatus = (TextView)convertView.findViewById(R.id.txtNewStatus);
-//        if(m.getStatusNew().equals("new")){
-//            txt_newstatus.setVisibility(View.VISIBLE);
-//        }else{
-//            txt_newstatus.setVisibility(View.INVISIBLE);
-//        }
-//        TextView txtSaleOrReversed = (TextView)convertView.findViewById(R.id.txtReserved);
-//        if(m.getStatusReserved().equals("sale")){
-//            txtSaleOrReversed.setVisibility(View.INVISIBLE);
-//        }else{
-//            txtSaleOrReversed.setVisibility(View.VISIBLE);
-//            txtSaleOrReversed.setBackgroundResource(R.color.reversed_color_text);
-//            txtSaleOrReversed.setText(m.getStatusReserved());
-//        }
-//
-//
-//        convertView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent toDetailActivity = new Intent(mcontext, FragmentDetailCar.class);
-//                SharedPreferences CheckCarID = mcontext.getSharedPreferences("CheckCarID", 0);
-//                SharedPreferences.Editor userEditer=CheckCarID.edit();
-//                userEditer.putString("indexID",m.getIdexID());
-//                userEditer.commit();
-//                mcontext.startActivity(toDetailActivity);
-//            }
-//        });
+        TextView txt_newstatus = (TextView)convertView.findViewById(R.id.txtNewStatus);
+        Log.e("Records",mRecords.getStatusNew()+","+(mRecords.getStatusReserved()));
+        if(mRecords.getStatusNew().equals("new")){
+            txt_newstatus.setVisibility(View.VISIBLE);
+         }else{
+            txt_newstatus.setVisibility(View.INVISIBLE);
+           }
+        TextView txtSaleOrReversed = (TextView)convertView.findViewById(R.id.txtReserved);
+        if(mRecords.getStatusReserved().equals("sale")){
+            txtSaleOrReversed.setVisibility(View.INVISIBLE);
+        }else{
+            txtSaleOrReversed.setVisibility(View.VISIBLE);
+            txtSaleOrReversed.setBackgroundResource(R.color.reversed_color_text);
+            txtSaleOrReversed.setText(mRecords.getStatusReserved());
+        }
+
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toDetailActivity = new Intent(activity, FragmentDetailCar.class);
+                SharedPreferences CheckCarID = activity.getSharedPreferences("CheckCarID", 0);
+                SharedPreferences.Editor userEditer=CheckCarID.edit();
+                userEditer.putString("indexID",mRecords.getIdexID());
+                userEditer.commit();
+                activity.startActivity(toDetailActivity);
+            }
+        });
 
 
 

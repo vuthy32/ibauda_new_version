@@ -5,4 +5,852 @@
     android:orientation="vertical"
     tools:context="info.androidhive.materialdesign.activity.ContactUsFragment">
 
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:layout_below="@+id/toolbar_actionbar">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_below="@+id/toolbar_actionbar"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:background="@drawable/contact_us"></LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="BLAUDA JAPAN CO.,LTD." />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10.46">
+
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:paddingRight="10dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="ADDREESS"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail"
+                        android:layout_marginRight="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":"/>
+
+                    <TextView
+                        android:textColor="@color/text_detail"
+                        android:layout_column="2"
+                        android:text="Ohtaki Bldg 1f, 2-11-19 Kohnan, Minato-Ku 108-0075 Tokyo, Japan "
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp" />
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="TEL"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":" />
+
+                    <TextView
+                        android:textColor="@color/text_detail"
+                        android:layout_column="2"
+                        android:text="Tel: + (81) 80-4095-0379 "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp" />
+                </TableRow>
+                <!--Webseite-->
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="WEBSITE"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":" />
+
+                    <TextView
+                        android:textColor="@color/text_detail"
+                        android:layout_column="2"
+                        android:text="www.iblauda.com "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp" />
+                </TableRow>
+                <!--Email -->
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="EMAIL"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":" />
+
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:layout_column="2"
+                        android:text="info@blauda.com"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:layout_marginLeft="8dp" />
+                </TableRow>
+
+            </TableLayout>
+            <!--end Ibaluda Detail BLAUDA JAPAN CO.,LTD.  -->
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="BLAUDA KOREA CO.,LTD. "
+                        android:id="@+id/textView12" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10.46">
+
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingRight="10dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="ADDREESS"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail"
+                        android:layout_marginRight="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":"
+                        android:id="@+id/textView2" />
+
+                    <TextView
+                        android:textColor="@color/text_detail"
+                        android:id="@+id/txt_City"
+                        android:layout_column="2"
+                        android:text="E-1906B, Songdo Smart Valley, 30 Songdomirae-ro, Yeonsu-gu, Incheon, Korea "
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:textStyle="italic"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp" />
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="TEL"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":" />
+
+                    <TextView
+                        android:textColor="@color/text_detail"
+                        android:layout_column="2"
+                        android:text="Tel: + (82) 32-264-5500      FAX: + (82) 32-712-4885 9 "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp" />
+                </TableRow>
+<!--Webseite-->
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="WEBSITE"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":" />
+
+                    <TextView
+                        android:textColor="@color/text_detail"
+                        android:layout_column="2"
+                        android:text="www.iblauda.com "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp" />
+                </TableRow>
+                <!--Email -->
+                <TableRow
+                    android:background="@color/textColorPrimary"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="EMAIL"
+                        android:layout_column="0"
+                        android:textColor="#fd060a2a"
+                        android:layout_marginLeft="@dimen/padding_row_left"
+                        android:paddingTop="@dimen/padding_text_detail"
+                        android:paddingBottom="@dimen/padding_text_detail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text=":" />
+
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:layout_column="2"
+                        android:text=" aslam0919@blauda.com "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:layout_marginLeft="8dp" />
+                </TableRow>
+
+            </TableLayout>
+        <!--end Ibaluda Detail BLAUDA KOREA CO.,LTD. -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:paddingLeft="8dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="THE TEAM FOR JAPANESE EXPORT"
+                    android:id="@+id/textView11"
+                    android:textColor="@color/textColorPrimary" />
+            </LinearLayout>
+
+            <TableLayout
+                android:id="@+id/tbl_test"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:stretchColumns="0,1,2">
+
+                <!-- Kanta Row-->
+                <TableRow
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/textColorPrimary"
+                    android:layout_marginBottom="8dp">
+                    <GridLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:layout_marginTop="10dip">
+
+                        <TextView
+                            android:layout_width="132dp"
+                            android:layout_height="157dp"
+                            android:background="@drawable/staffa"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dip"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2"
+                           />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dip"
+                            android:orientation="vertical"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:textStyle="bold"
+                            android:text="BLAUDA JAPAN CO.,LTD. "
+                            android:singleLine="true"
+                            android:layout_rowSpan="2">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dip"
+                                android:layout_column="1"
+                                android:layout_row="1"
+                                android:textStyle="italic"
+                                android:text="KENTA"
+                                    android:textSize="20dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="+855-16-4040-32"
+                                    android:textSize="18dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="kenta@blauda.com"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </GridLayout>
+
+                </TableRow>
+                <!-- End KanTa-->
+                <TableRow
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/textColorPrimary">
+                    <GridLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:layout_marginTop="10dip">
+
+                        <TextView
+                            android:layout_width="132dp"
+                            android:layout_height="157dp"
+
+                            android:background="@drawable/staffb"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dip"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:layout_marginLeft="10dip"
+                            android:orientation="vertical"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:textStyle="bold"
+                            android:text="BLAUDA JAPAN CO.,LTD. "
+                            android:singleLine="true"
+                            android:layout_rowSpan="2">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="MAY "
+                                    android:textSize="20dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="+855-96-299-8906"
+                                    android:textSize="18dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="may@blauda.com"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </GridLayout>
+
+                </TableRow>
+                <!-- End KanTa-->
+
+
+            </TableLayout>
+
+
+
+            <!-- *************************************-->
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:paddingLeft="8dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="THE TEAM FOR KOREAN EXPORT"
+                    android:textColor="@color/textColorPrimary" />
+            </LinearLayout>
+
+            <TableLayout
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:stretchColumns="0,1,2">
+
+                <!-- Kanta Row-->
+                <TableRow
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/textColorPrimary"
+                    android:layout_marginBottom="8dp">
+                    <GridLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:layout_marginTop="10dip">
+
+                        <TextView
+                            android:layout_width="132dp"
+                            android:layout_height="157dp"
+                            android:background="@drawable/staffc"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dip"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dip"
+                            android:orientation="vertical"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:textStyle="bold"
+                            android:text="BLAUDA JAPAN CO.,LTD. "
+                            android:singleLine="true"
+                            android:layout_rowSpan="2">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="DIEGO "
+                                    android:textSize="20dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="+51-1-397-5721"
+                                    android:textSize="18dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="diego@blauda.com"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </GridLayout>
+
+                </TableRow>
+                <!-- VICTOR -->
+                <TableRow
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/textColorPrimary">
+                    <GridLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:layout_marginTop="10dip">
+
+                        <TextView
+                            android:layout_width="132dp"
+                            android:layout_height="157dp"
+
+                            android:background="@drawable/staffd"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dip"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:layout_marginLeft="10dip"
+                            android:orientation="vertical"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:textStyle="bold"
+                            android:text="BLAUDA JAPAN CO.,LTD. "
+                            android:singleLine="true"
+                            android:layout_rowSpan="2">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="VICTOR"
+                                    android:textSize="20dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="+51-1-397-5721"
+                                    android:textSize="18dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="victor@blauda.com"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </GridLayout>
+                </TableRow>
+                <!-- End KanTa-->
+
+                <!-- JESUS  -->
+                <TableRow
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:background="@color/textColorPrimary">
+                    <GridLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:layout_marginTop="10dip">
+
+                        <TextView
+                            android:layout_width="132dp"
+                            android:layout_height="157dp"
+
+                            android:background="@drawable/staffe"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dip"
+                            android:layout_row="0"
+                            android:layout_rowSpan="2"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:layout_marginLeft="10dip"
+                            android:orientation="vertical"
+                            android:layout_column="1"
+                            android:layout_row="0"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:layout_rowSpan="2">
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="JESUS"
+                                    android:textSize="20dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="+51-1-397-5721"
+                                    android:textSize="18dp"
+                                    android:layout_marginBottom="5dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dip"
+                                    android:layout_column="1"
+                                    android:layout_row="1"
+                                    android:textStyle="italic"
+                                    android:text="jesus@blauda.com"
+                                    android:textSize="18dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </GridLayout>
+                </TableRow>
+
+
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

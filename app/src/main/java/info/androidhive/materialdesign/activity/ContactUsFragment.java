@@ -48,50 +48,45 @@ import info.androidhive.materialdesign.json_url.UrlJsonLink;
 
 import static com.google.android.gms.internal.zzhl.runOnUiThread;
 
-public class ContactUsFragment extends Fragment{
-    ActionBarActivity actionBarActivity;
+public class ContactUsFragment extends AppCompatActivity{
+
     private Toolbar mToolbar;
     private TextView headText;
-public static final String TAGFragment = "ContactUsFragment";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.fragment_contact);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        headText = (TextView) findViewById(R.id.toolbar_title);
+        headText.setText(R.string.menu_contact_us);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_contact, container, false);
-        // Inflate the layout for this fragment
-        return rootView;
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        getActivity().getMenuInflater().inflate(R.menu.menu_register, menu);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.menu_register, menu);
-      //  super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("HomeActivity", "Resualt");
-        getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_register, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

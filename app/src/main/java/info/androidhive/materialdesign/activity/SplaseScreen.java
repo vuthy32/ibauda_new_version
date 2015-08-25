@@ -6,11 +6,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -42,10 +44,12 @@ import info.androidhive.materialdesign.json_url.UrlJsonLink;
  */
 public class SplaseScreen extends AppCompatActivity {
    private String PACKAG_PAHT;
-    private static String file_url = "http://angkorauto.com/carfinder_ios/rest/data-sqlite/data.sqlite";
+    private static String file_url = "http://iblauda.com/android/iblauda.sqlite";
     /**
      * Called when the activity is first created.
      */
+    boolean mboolean = false;
+    private static int SPLASH_TIME_OUT = 1000;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -56,7 +60,33 @@ public class SplaseScreen extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
         PACKAG_PAHT = this.getPackageName();
-        new DownloadFileFromURL().execute(file_url);
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        if (!mboolean) {
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            Log.e("First Runing", "First Runing getJson");
+            editor.commit();
+            new DownloadFileFromURL().execute(file_url);
+
+        }else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(SplaseScreen.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }, SPLASH_TIME_OUT);
+            Log.e("First Runing", " Runing AnyTime");
+            // Log.e("Firs", );
+        }
+
+
+
+
         long maxMemory = Runtime.getRuntime().maxMemory();
         long totalMemory= Runtime.getRuntime().totalMemory();
         long FreeMemory = Runtime.getRuntime().freeMemory();
@@ -85,7 +115,7 @@ public class SplaseScreen extends AppCompatActivity {
                 URL url = new URL(f_url[0]);
                 URLConnection conection = url.openConnection();
                 conection.connect();
-                File wallpaperDirectory = new File("/sdcard/Android//data/"+PACKAG_PAHT);
+                File wallpaperDirectory = new File("/sdcard/Android/data/"+PACKAG_PAHT);
 // have the object build the directory structure, if needed.
                 wallpaperDirectory.mkdirs();
 // create a File object for the output file

@@ -70,6 +70,9 @@ public class HomeFragment extends Fragment{
     private List<ModelHomeFragment> ArarryTestMake = new ArrayList<ModelHomeFragment>();
     //***************************************************************
     ImageHomeAdapterSqlite mAdapterSqlite;
+
+    //**************Var String*************************
+    private   String carFob;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -90,7 +93,7 @@ public class HomeFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         //*****************************SERVER DATA*************************8
 //        mAdapter = new ImageHomeAdapter(getActivity());
-////        //  Log.e("Adapter", ""+records.size());
+
 //        gridviewMostView = (ListView) getActivity().findViewById(R.id.listViewHome);
 //        // set adapter grideview
 //        gridviewMostView.setAdapter(mAdapter);
@@ -102,31 +105,23 @@ public class HomeFragment extends Fragment{
             Log.d("savedInstanceState","Not Null");
         }
         mydb = new DatabaseHandler(getActivity());
-        String carFob;
-       // mydb.Myqery();
+
+        //mydb.Myqery();
         List<ModelHomeFragment> contactsCars = mydb.getAllCarData();
         for (ModelHomeFragment cn : contactsCars){
             ModelHomeFragment PhotoCar = new ModelHomeFragment();
-
-           // String title = cn.getTitle();
-             //   Log.e("cn.getCarNo()", "" + cn.getCarNo());
             PhotoCar.setImageUrl(cn.getImageUrl());
-
             PhotoCar.setCarNo("NO: " + cn.getCarNo());
-
             PhotoCar.setTitle(cn.getTitle());
-
             PhotoCar.setIdexID(cn.getIdexID());
-
             PhotoCar.setCityCar(cn.getCityCar());
-
-            if (cn.getCarFob().equals("0")){
+            if (cn.getCarFob().equals("0") ||cn.getCarFob().equals("")){
                 carFob = "FOB: Ask For Price";
             }else{
                 int numberPrice = Integer.parseInt(cn.getCarFob().toString());
                 DecimalFormat dfmal = new DecimalFormat("#,###");
                 String resultPrice = dfmal.format(numberPrice);
-                carFob = "FOB: "+resultPrice+" "+"(car_fob_currency)";
+                carFob = "FOB: "+resultPrice+""+cn.getCarFobCurrency();
             }
             PhotoCar.setCarFob(carFob);
 
@@ -142,40 +137,38 @@ public class HomeFragment extends Fragment{
     }
 
 
-
-
 //****************************Json Server Object***********************************************
-    private List<ModelHomeFragment> parse(JSONObject json) throws JSONException {
-             records = new ArrayList<ModelHomeFragment>();
-        String carFob;
-            JSONArray jsonImages = json.getJSONArray("car_list");
-            for(int i =0; i < jsonImages.length(); i++) {
-                JSONObject jsonImage = jsonImages.getJSONObject(i);
-                String title = jsonImage.getString("car_make")+" "+jsonImage.getString("car_model")+" "+jsonImage.getString("car_year_start");
-                String car_year = jsonImage.getString("car_year");
-                String ImageUrl = jsonImage.getString("image_name");
-                String car_stock_no = "No: "+jsonImage.getString("car_stock_no");
-                if (jsonImage.getString("car_fob_cost").equals("0")){
-                    carFob = "FOB: Ask For Price";
-                }else{
-                    int numberPrice = Integer.parseInt(jsonImage.getString("car_fob_cost").toString());
-                    DecimalFormat dfmal = new DecimalFormat("#,###");
-                    String resultPrice = dfmal.format(numberPrice);
-                    carFob = "FOB: "+resultPrice+" "+jsonImage.getString("car_fob_currency");
-                }
-                String IndexID = jsonImage.getString("idx");
-                String CtityCarCountry = jsonImage.getString("country") + " " + jsonImage.getString("car_city");
-                String StatusNew = jsonImage.getString("created_status");
-                String StatusReserved = jsonImage.getString("icon_status");
-
-                Log.e("JsonImage",ImageUrl);
-                ModelHomeFragment record = new ModelHomeFragment(
-                        title,car_year,ImageUrl,car_stock_no,
-                        carFob,IndexID,CtityCarCountry,StatusNew,StatusReserved);
-                records.add(record);
-            }
-            return records;
-        }
+//    private List<ModelHomeFragment> parse(JSONObject json) throws JSONException {
+//             records = new ArrayList<ModelHomeFragment>();
+//        String carFob;
+//            JSONArray jsonImages = json.getJSONArray("car_list");
+//            for(int i =0; i < jsonImages.length(); i++) {
+//                JSONObject jsonImage = jsonImages.getJSONObject(i);
+//                String title = jsonImage.getString("car_make")+" "+jsonImage.getString("car_model")+" "+jsonImage.getString("car_year_start");
+//                String car_year = jsonImage.getString("car_year");
+//                String ImageUrl = jsonImage.getString("image_name");
+//                String car_stock_no = "No: "+jsonImage.getString("car_stock_no");
+//                if (jsonImage.getString("car_fob_cost").equals("0")){
+//                    carFob = "FOB: Ask For Price";
+//                }else{
+//                    int numberPrice = Integer.parseInt(jsonImage.getString("car_fob_cost").toString());
+//                    DecimalFormat dfmal = new DecimalFormat("#,###");
+//                    String resultPrice = dfmal.format(numberPrice);
+//                    carFob = "FOB: "+resultPrice+" "+jsonImage.getString("car_fob_currency");
+//                }
+//                String IndexID = jsonImage.getString("idx");
+//                String CtityCarCountry = jsonImage.getString("country") + " " + jsonImage.getString("car_city");
+//                String StatusNew = jsonImage.getString("created_status");
+//                String StatusReserved = jsonImage.getString("icon_status");
+//                String CurrenCyCar = jsonImage.getString("icon_status");
+//                Log.e("JsonImage",ImageUrl);
+//                ModelHomeFragment record = new ModelHomeFragment(
+//                        title,car_year,ImageUrl,car_stock_no,
+//                        carFob,IndexID,CtityCarCountry,StatusNew,StatusReserved);
+//                records.add(record);
+//            }
+//            return records;
+//        }
 //*************************************************************************************************
     @Override
     public void onStart() {
@@ -218,7 +211,7 @@ public class HomeFragment extends Fragment{
                               // linearLayout.setVisibility(View.GONE);
                               //  getActivity().getLayoutInflater().inflate(R.layout.gride_view_layout, ContentFrameLayout);
                                 receivedJSONObject.getString("car_list");
-                                List<ModelHomeFragment> imageRecords = parse(receivedJSONObject);
+                                //List<ModelHomeFragment> imageRecords = parse(receivedJSONObject);
                                // mAdapter.swapImageRecords(imageRecords);
 
                             } catch (JSONException e) {

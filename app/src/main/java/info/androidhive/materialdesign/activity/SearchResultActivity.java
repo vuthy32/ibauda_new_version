@@ -28,6 +28,7 @@ import java.util.List;
 import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
 import info.androidhive.materialdesign.R;
 import info.androidhive.materialdesign.adapter.ImageHomeAdapter;
+import info.androidhive.materialdesign.adapter.ImageHomeAdapterSqlite;
 import info.androidhive.materialdesign.json_url.UrlJsonLink;
 
 /**
@@ -38,12 +39,16 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView headText;
     private  ListView gridviewMostView;
     private   RequestQueue mRequestQueue;
-    ImageHomeAdapter mAdapter;
-
+    ImageHomeAdapterSqlite mAdapterSqlite;
+    DatabaseHandler mydb;
     public static final String REQUEST_TAG = "SearchResultActivity";
-    ArrayList<ModelHomeFragment> records;
+    private List<ModelHomeFragment> ArarryTestMake = new ArrayList<ModelHomeFragment>();
+    //***************************************************************
+
     private String KeyWordSearch;
 
+    //**************Var String*************************
+    private   String carFob;
 
     public SearchResultActivity() {
         // Required empty public constructor
@@ -53,6 +58,7 @@ public class SearchResultActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
+        mydb = new DatabaseHandler(this);
         mRequestQueue = Volley.newRequestQueue((this));
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         headText = (TextView) findViewById(R.id.toolbar_title);
@@ -64,13 +70,41 @@ public class SearchResultActivity extends AppCompatActivity {
             Log.d("savedInstanceState","Null");
         Intent getIntentSearch = this.getIntent();
         KeyWordSearch = getIntentSearch.getStringExtra("search_data");
-        HomJson();
 
-        mAdapter = new ImageHomeAdapter(this);
-        //  Log.e("Adapter", ""+records.size());
+        List<ModelHomeFragment> contactsCars = mydb.get_tag_Data(KeyWordSearch);
+        for (ModelHomeFragment cn : contactsCars){
+            ModelHomeFragment PhotoCar = new ModelHomeFragment();
+            PhotoCar.setImageUrl(cn.getImageUrl());
+
+            PhotoCar.setCarNo("NO: " + cn.getCarNo());
+
+            PhotoCar.setTitle(cn.getTitle());
+
+            PhotoCar.setIdexID(cn.getIdexID());
+
+            PhotoCar.setCityCar(cn.getCityCar());
+
+            if (cn.getCarFob().equals("0") ||cn.getCarFob().equals("")){
+                carFob = "FOB: Ask For Price";
+            }else{
+                int numberPrice = Integer.parseInt(cn.getCarFob().toString());
+                DecimalFormat dfmal = new DecimalFormat("#,###");
+                String resultPrice = dfmal.format(numberPrice);
+                carFob = "FOB: "+resultPrice+""+cn.getCarFobCurrency();
+            }
+            PhotoCar.setCarFob(carFob);
+
+            PhotoCar.setStatusNew(cn.getStatusNew());
+            PhotoCar.setStatusReserved(cn.getStatusReserved());
+            ArarryTestMake.add(PhotoCar);
+        }
+        mAdapterSqlite = new ImageHomeAdapterSqlite(SearchResultActivity.this,ArarryTestMake);
+//        //  Log.e("Adapter", ""+records.size());
         gridviewMostView = (ListView)findViewById(R.id.listViewHome);
         // set adapter grideview
-        gridviewMostView.setAdapter(mAdapter);
+        gridviewMostView.setAdapter(mAdapterSqlite);
+
+
 
     }
 
@@ -92,68 +126,68 @@ public class SearchResultActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-    private List<ModelHomeFragment> parse(JSONArray json) throws JSONException {
-        records = new ArrayList<ModelHomeFragment>();
-        String carFob;
-        //JSONArray jsonImages = json.getJSONArray("car_list");
-        for(int i =0; i < json.length(); i++) {
-            JSONObject jsonImage = json.getJSONObject(i);
-            String title = jsonImage.getString("car_make")+" "+jsonImage.getString("car_model")+" "+jsonImage.getString("car_year_start");
-            String car_year = jsonImage.getString("car_year");
-            String ImageUrl = jsonImage.getString("image_name");
-            String car_stock_no = "No: "+jsonImage.getString("car_stock_no");
-            if (jsonImage.getString("car_fob_cost").equals("0")){
-                carFob = "FOB: Ask For Price";
-            }else{
-                int numberPrice = Integer.parseInt(jsonImage.getString("car_fob_cost").toString());
-                DecimalFormat dfmal = new DecimalFormat("#,###");
-                String resultPrice = dfmal.format(numberPrice);
-                carFob = "FOB: "+resultPrice+" "+jsonImage.getString("car_fob_currency");
-            }
-            String IndexID = jsonImage.getString("idx");
-            String CtityCarCountry = jsonImage.getString("country") + " " + jsonImage.getString("car_city");
-            Log.e("JsonImage",ImageUrl);
-            String StatusNew = jsonImage.getString("created_status");
-            String StatusReserved = jsonImage.getString("icon_status");
-
-            Log.e("JsonImage",ImageUrl);
-            ModelHomeFragment record = new ModelHomeFragment(
-                    title,car_year,ImageUrl,car_stock_no,
-                    carFob,IndexID,CtityCarCountry,StatusNew,StatusReserved);
-            records.add(record);
-        }
-        return records;
-    }
-
-    public void HomJson() {
-        JsonArrayRequest mJsonArrayDetailgallery = new JsonArrayRequest(UrlJsonLink.URL_SEARCH+KeyWordSearch,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("JsonAray Respone", response.toString());
-                            try {
-                                List<ModelHomeFragment> imageRecords = parse(response);
-                             //   mAdapter.swapImageRecords(imageRecords);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Json can not respone", "Error: " + error.getMessage());
-            }
-        });
-
-// add it to the RequestQueue
-        mRequestQueue.add(mJsonArrayDetailgallery);
-
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//    }
+//    private List<ModelHomeFragment> parse(JSONArray json) throws JSONException {
+//        records = new ArrayList<ModelHomeFragment>();
+//        String carFob;
+//        //JSONArray jsonImages = json.getJSONArray("car_list");
+//        for(int i =0; i < json.length(); i++) {
+//            JSONObject jsonImage = json.getJSONObject(i);
+//            String title = jsonImage.getString("car_make")+" "+jsonImage.getString("car_model")+" "+jsonImage.getString("car_year_start");
+//            String car_year = jsonImage.getString("car_year");
+//            String ImageUrl = jsonImage.getString("image_name");
+//            String car_stock_no = "No: "+jsonImage.getString("car_stock_no");
+//            if (jsonImage.getString("car_fob_cost").equals("0")){
+//                carFob = "FOB: Ask For Price";
+//            }else{
+//                int numberPrice = Integer.parseInt(jsonImage.getString("car_fob_cost").toString());
+//                DecimalFormat dfmal = new DecimalFormat("#,###");
+//                String resultPrice = dfmal.format(numberPrice);
+//                carFob = "FOB: "+resultPrice+" "+jsonImage.getString("car_fob_currency");
+//            }
+//            String IndexID = jsonImage.getString("idx");
+//            String CtityCarCountry = jsonImage.getString("country") + " " + jsonImage.getString("car_city");
+//            Log.e("JsonImage",ImageUrl);
+//            String StatusNew = jsonImage.getString("created_status");
+//            String StatusReserved = jsonImage.getString("icon_status");
+//
+//            Log.e("JsonImage",ImageUrl);
+//            ModelHomeFragment record = new ModelHomeFragment(
+//                    title,car_year,ImageUrl,car_stock_no,
+//                    carFob,IndexID,CtityCarCountry,StatusNew,StatusReserved);
+//            records.add(record);
+//        }
+//        return records;
+//    }
+//
+//    public void HomJson() {
+//        JsonArrayRequest mJsonArrayDetailgallery = new JsonArrayRequest(UrlJsonLink.URL_SEARCH+KeyWordSearch,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        Log.d("JsonAray Respone", response.toString());
+//                            try {
+//                                List<ModelHomeFragment> imageRecords = parse(response);
+//                             //   mAdapter.swapImageRecords(imageRecords);
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                VolleyLog.d("Json can not respone", "Error: " + error.getMessage());
+//            }
+//        });
+//
+//// add it to the RequestQueue
+//        mRequestQueue.add(mJsonArrayDetailgallery);
+//
+//    }
 
 
 }

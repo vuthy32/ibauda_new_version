@@ -6,30 +6,50 @@ package info.androidhive.materialdesign.JsonModel;
 public class ModelHomeFragment {
     private String car_year;
     private String title;
-    private String ImageUrl;
+    private String ImageUrl,PhotoUrl,SortPhoto;
     private String carNo;
     private String CarFob;
     private String IdexID;
     private String CityCar;
     private String StatusNew;
     private String StatusReserved;
+    private String CarFobCurrency;
     public ModelHomeFragment(){}
 
     public ModelHomeFragment(
-            String title,String car_year,String imageUrls,
+            String title,String car_year,String imageUrls,String PhotoUrls,String SortPhotos,
             String carNo,String carFobs,String IdexIDcar,
-            String CityCara,String StatusNews,String StatusReserveds
+            String CityCara,String StatusNews,String StatusReserveds,String CurrencyCar
     ) {
         this.title = title;
         this.car_year = car_year;
         this.ImageUrl=imageUrls;
+        this.PhotoUrl=PhotoUrls;
+        this.SortPhoto=SortPhotos;
         this.carNo = carNo;
         this.CarFob =carFobs;
         this.IdexID = IdexIDcar;
         this.CityCar = CityCara;
         this.StatusNew = StatusNews;
         this.StatusReserved=StatusReserveds;
+        this.CarFobCurrency=CurrencyCar;
     }
+    // get getPhotoUrl***************************
+    public String getSortPhoto(){return SortPhoto;}
+    // get setPhotoUrl***************************
+    public void setSortPhoto(String SortPhotoss){this.SortPhoto=SortPhotoss;}
+
+
+    // get getPhotoUrl***************************
+    public String getPhotoUrl(){return PhotoUrl;}
+    // get setPhotoUrl***************************
+    public void setPhotoUrl(String PhotoUrls){this.PhotoUrl=PhotoUrls;}
+
+    // get getCarFobCurrency***************************
+    public String getCarFobCurrency(){return CarFobCurrency;}
+    // get setCarFobCurrency***************************
+    public void setCarFobCurrency(String CurrencyCars){this.CarFobCurrency=CurrencyCars;}
+
     // get getStatusReserved***************************
     public String getStatusReserved(){return StatusReserved;}
     // get getStatusNew***************************

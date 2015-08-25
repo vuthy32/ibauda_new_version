@@ -155,7 +155,7 @@ public class FragmentChildDetail extends Fragment implements View.OnClickListene
         Log.d("getShareCarMilleag",""+getShareCarMilleag);
         TextView textViewMileage = (TextView)rootView.findViewById(R.id.txt_Mileage);
         if (getShareCarMilleag!=null) {
-            if (getShareCarMilleag.equals("0")) {
+            if (!getShareCarMilleag.equals("0")) {
                 int numberMileag = Integer.parseInt(getShareCarMilleag.toString());
                 DecimalFormat dfds = new DecimalFormat("#,###");
                 String mealigeSize = dfds.format(numberMileag);
@@ -184,10 +184,14 @@ public class FragmentChildDetail extends Fragment implements View.OnClickListene
         Log.d("getShareCarCost",""+getShareCarCost);
         if (getShareCarCost != null) {
             Log.d("getShareCarCost",""+getShareCarCost);
-            int numberMoney = Integer.parseInt(getShareCarCost.toString());
-            DecimalFormat df = new DecimalFormat("#,###");
-            String result = df.format(numberMoney);
-            textViewFOBLocation.setText(result + "" + getShareCarFOB + "($)");
+            if (!getShareCarCost.equals("0")) {
+                int numberMoney = Integer.parseInt(getShareCarCost.toString());
+                DecimalFormat df = new DecimalFormat("#,###");
+                String result = df.format(numberMoney);
+                textViewFOBLocation.setText(result + " " + getShareCarFOB + "($)");
+            }else{
+                textViewFOBLocation.setText("Ask For Price");
+            }
         }
 
         return rootView;
@@ -199,8 +203,8 @@ public class FragmentChildDetail extends Fragment implements View.OnClickListene
         //***************************Button Order And Chat***********************************
         BtnOrder = (Button)getActivity().findViewById(R.id.btnOrder);
         BtnOrder.setOnClickListener(this);
-        BtnChat = (Button)getActivity().findViewById(R.id.btnChat);
-        BtnChat.setOnClickListener(this);
+        //BtnChat = (Button)getActivity().findViewById(R.id.btnChat);
+       // BtnChat.setOnClickListener(this);
 
     }
 
@@ -229,20 +233,20 @@ public class FragmentChildDetail extends Fragment implements View.OnClickListene
 
 
                 break;
-            case R.id.btnChat:
-                if (!member_id.equals("")){
-                    intentActivity = new Intent(getActivity(),ListChatUser.class);
-                    startActivity(intentActivity);
-                }else{
-                    SharedPreferences.Editor  editorUser =  user.edit();
-                    editorUser.putString(ManageActivityTag.TAG_CHAT_ACTIVITY,ManageActivityTag.TAG_CHAT_ACTIVITY);
-                    editorUser.commit();
-                    intentActivity = new Intent(getActivity(),LoginActivity.class);
-                    startActivity(intentActivity);
-                    getActivity().overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
-                }
-
-                break;
+//            case R.id.btnChat:
+//                if (!member_id.equals("")){
+//                    intentActivity = new Intent(getActivity(),ListChatUser.class);
+//                    startActivity(intentActivity);
+//                }else{
+//                    SharedPreferences.Editor  editorUser =  user.edit();
+//                    editorUser.putString(ManageActivityTag.TAG_CHAT_ACTIVITY,ManageActivityTag.TAG_CHAT_ACTIVITY);
+//                    editorUser.commit();
+//                    intentActivity = new Intent(getActivity(),LoginActivity.class);
+//                    startActivity(intentActivity);
+//                    getActivity().overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
+//                }
+//
+//                break;
         }
 
     }

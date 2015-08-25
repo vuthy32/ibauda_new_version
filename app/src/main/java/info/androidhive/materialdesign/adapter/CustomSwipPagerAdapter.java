@@ -2,8 +2,6 @@ package info.androidhive.materialdesign.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,26 +13,24 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.List;
 
 import info.androidhive.materialdesign.AppController.AppController;
-import info.androidhive.materialdesign.JsonModel.ModelGallery;
+import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
 import info.androidhive.materialdesign.R;
 
-public class GalleryGridViewAdapter extends BaseAdapter {
+public class CustomSwipPagerAdapter extends BaseAdapter {
 	private Activity activity;
 	private LayoutInflater inflater;
-	private List<ModelGallery> arrayItems;
-     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-	public GalleryGridViewAdapter(Activity activity, List<ModelGallery> arrayItems) {
+	private List<ModelHomeFragment> arrayItems;
+    private String home_title,
+           count_item;
+    ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+	public CustomSwipPagerAdapter(Activity activity, List<ModelHomeFragment> arrayItems) {
 		this.activity = activity;
 		this.arrayItems = arrayItems;
 	}
 
 	@Override
 	public int getCount() {
-		SharedPreferences getGallery = activity.getSharedPreferences("GalleryImage", Context.MODE_PRIVATE);
-		int var = getGallery.getInt("Arraysize", 0);
-
-		Log.e("DataItemwww", "" + var);
-		return var;
+		return arrayItems.size();
 	}
 
 	@Override
@@ -59,9 +55,9 @@ public class GalleryGridViewAdapter extends BaseAdapter {
             imageLoader = AppController.getInstance().getImageLoader();
         NetworkImageView thumbNail = (NetworkImageView) convertView
                 .findViewById(R.id.thumbnail_gridview);
-        final ModelGallery m = arrayItems.get(position);
-        thumbNail.setImageUrl(m.getThumbImage(), imageLoader);
-		//Log.d("Hello",m.getThumbImage());
+		ModelHomeFragment m = arrayItems.get(position);
+        thumbNail.setImageUrl(m.getPhotoUrl(), imageLoader);
+
         return convertView;
     }
 

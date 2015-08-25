@@ -37,11 +37,16 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import info.androidhive.materialdesign.AppController.AppController;
+import info.androidhive.materialdesign.JsonModel.ModelCarGet;
+import info.androidhive.materialdesign.JsonModel.ModelHomeFragment;
 import info.androidhive.materialdesign.R;
+import info.androidhive.materialdesign.activity.DatabaseHandler;
 import info.androidhive.materialdesign.activity.SearchResultActivity;
 import info.androidhive.materialdesign.adapter.ImageHomeAdapter;
+import info.androidhive.materialdesign.json_url.SchemaFieldTable;
 import info.androidhive.materialdesign.json_url.UrlJsonLink;
 
 public class FragmentDetailCar extends AppCompatActivity {
@@ -58,12 +63,14 @@ public class FragmentDetailCar extends AppCompatActivity {
     ProgressDialog dialogprocess;
     String filename = "ShareDataDetail";
     private  SharedPreferences detailDataShare;
+    SharedPreferences.Editor editorImage;
     String url;
+    DatabaseHandler mydb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_layout);
-
+        mydb=new DatabaseHandler(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         headText=(TextView)findViewById(R.id.toolbar_title);
         headText.setText(R.string.header_detail);
@@ -79,16 +86,119 @@ public class FragmentDetailCar extends AppCompatActivity {
         mTabHost.setup();
         initializeTab();
         mRequestQueue = Volley.newRequestQueue(this);
-        if (savedInstanceState==null) {
-            SharedPreferences CheckCarID = this.getSharedPreferences("CheckCarID", Context.MODE_PRIVATE);
-            String IndexID = CheckCarID.getString("indexID",null);
-                    getDetail(IndexID);
-                    Log.d("Inedx", ""+IndexID);
-        }
+
         mImageLoader = AppController.getInstance().getImageLoader();
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.frameLayout2);
         getLayoutInflater().inflate(R.layout.banner_detail, frameLayout);
         detailDataShare = this.getSharedPreferences(filename, 0);
+
+
+        if (savedInstanceState==null) {
+            SharedPreferences CheckCarID = this.getSharedPreferences("CheckCarID", Context.MODE_PRIVATE);
+            String IndexID = CheckCarID.getString("indexID", null);
+                Log.e("IndexID",""+IndexID);
+            //*******array photo image for swip***************
+            ArrayList<String> myArrayListSwip = new ArrayList<String>();
+            //*******array thumb image for gallery***************
+            ArrayList<String> myArrayList = new ArrayList<String>();
+            //************ShareReference Image Data*************
+            SharedPreferences gallerData = getSharedPreferences("GalleryImage", 0);
+            editorImage = gallerData.edit();
+            List<ModelHomeFragment> contactsCarPhoto = mydb.getGalleryPhoto(IndexID);
+            for (ModelHomeFragment cnP : contactsCarPhoto){
+                myArrayList.add(cnP.getImageUrl());
+                 if (cnP.getSortPhoto().equals("1")){
+                     url=cnP.getPhotoUrl();
+                     Log.e("HeaderUrl",url);
+                 }else{
+                     if (cnP.getSortPhoto().equals("2"))
+                         url=cnP.getPhotoUrl();
+                 }
+                editorImage.putInt("Arraysize", myArrayList.size());
+               // editorImage.putString("ImageThumb", cnP.getImageUrl());
+               // editorImage.putString("ImagePhoto",cnP.getImageUrl());
+                editorImage.commit();
+            }
+            NetworkImageView thumbNail = (NetworkImageView)findViewById(R.id.detail_headerImg);
+
+            Resources res = getApplication().getResources();
+            thumbNail.getLayoutParams().width=res.getDimensionPixelSize(R.dimen.bannerSqizeImage);
+            thumbNail.getLayoutParams().height=res.getDimensionPixelSize(R.dimen.bannerSqizeImageH);
+            thumbNail.setImageUrl(url, mImageLoader);
+
+            List<ModelCarGet> contactsCars = mydb.getAllCarDataDatil(IndexID);
+            for (ModelCarGet cn : contactsCars){
+                String carMaks                  = cn.getCarMake();
+                String carmodel                 = cn.getCarModel();
+                String carYears                 = cn.getCarYear();
+                String carStatYears             = cn.getCarStatYear();
+                String carTransmissionss        = cn.getCarTransmission();
+                String carCountryzz             = cn.getCarCountry();
+                String carCityssd               = cn.getCarCity();
+                String carStockNosd             = cn.getCarStockNo();
+                String carChasissNo             = cn.getCarChassNo();
+                String carStatussd              = cn.getCarStatus();
+                String carGrsdade               = cn.getCarGrade();
+                String carCC                    = cn.getCarCCStr();
+                String firstRegister            = cn.getFirstRegisterMonth();
+                String carMileagesd             = cn.getCarMileage();
+                String carFuelsd                = cn.getCarFuel();
+                String carColorsd               = cn.getCarColor();
+                String carSeatsd                = cn.getCarSeat();
+                String carBodyTypesd            = cn.getCarBodyType();
+                String carDriverTypesd          = cn.getCarDriverType();
+                String carFobCostsd             = cn.getCarFobCost();
+                String carFobCursdrent          = cn.getCarFobCurrent();
+
+                int numberPrice = Integer.parseInt(carFobCostsd.toString());
+                DecimalFormat dfmal = new DecimalFormat("#,###");
+                String resultPrice = dfmal.format(numberPrice);
+                //******************* set data to to text ************
+                TextView txtTitlePrice = (TextView)findViewById(R.id.txt_price_car);
+                TextView txtTitlePrices = (TextView)findViewById(R.id.txt_titleName);
+                if (carFobCostsd.equals("0")){
+                    txtTitlePrices.setText("FOB: " + "Ask For Price");
+                    txtTitlePrice.setText("FOB: " + "Ask For Price");
+                }else {
+                    txtTitlePrices.setText("FOB: " + resultPrice + "($)");
+                    txtTitlePrice.setText("FOB: " + resultPrice + "($)");
+                }
+                //*******************set data to shareReference************
+                SharedPreferences.Editor editerShare = detailDataShare.edit();
+                editerShare.putString(UrlJsonLink.ShareCarMake, carMaks);
+                editerShare.putString(UrlJsonLink.ShareCarModel, carmodel);
+                editerShare.putString(UrlJsonLink.ShareCarYear, carYears);
+                editerShare.putString(UrlJsonLink.ShareCarYearStart, carStatYears);
+                editerShare.putString(UrlJsonLink.ShareCarYearTransmission, carTransmissionss);
+                editerShare.putString(UrlJsonLink.ShareCarFirstRag, firstRegister);
+
+                editerShare.putString(UrlJsonLink.ShareCountry, carCountryzz);
+                editerShare.putString(UrlJsonLink.ShareCarCity, carCityssd);
+                editerShare.putString(UrlJsonLink.ShareCaStockNo, carStockNosd);
+                editerShare.putString(UrlJsonLink.ShareChasnisNo, carChasissNo);
+                editerShare.putString(UrlJsonLink.ShareIconStatus, carStatussd);
+                editerShare.putString(UrlJsonLink.ShareCarGrand, carGrsdade);
+                editerShare.putString(UrlJsonLink.ShareCarCC, carCC);
+                editerShare.putString(UrlJsonLink.ShareCarMilleag, carMileagesd);
+                editerShare.putString(UrlJsonLink.ShareCarFuel, carFuelsd);
+                editerShare.putString(UrlJsonLink.ShareCarColor, carColorsd);
+                editerShare.putString(UrlJsonLink.ShareCarSeat, carSeatsd);
+                editerShare.putString(UrlJsonLink.ShareCarBodyType, carBodyTypesd);
+                editerShare.putString(UrlJsonLink.ShareCarDriveType, carDriverTypesd);
+
+                editerShare.putString(UrlJsonLink.ShareCarCost, carFobCostsd);
+                editerShare.putString(UrlJsonLink.ShareCarFOB, carFobCursdrent);
+                Log.d("obje",carFobCursdrent);
+                editerShare.commit();
+            }
+
+
+
+        }
+
+
+
+
     }
     /*
     * Initialize the tabs and set views and identifiers for the tabs
@@ -151,32 +261,6 @@ public class FragmentDetailCar extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_register, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        SearchManager searchManager = (SearchManager)getApplication().getSystemService(Context.SEARCH_SERVICE);
-//
-//        SearchView searchView = null;
-//        if (searchItem != null) {
-//            searchView = (SearchView) searchItem.getActionView();
-//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//                @Override
-//                public boolean onQueryTextSubmit(String query) {
-//                    Intent intentSearch = new Intent(FragmentDetailCar.this,SearchResultActivity.class);
-//                    intentSearch.putExtra("search_data",query);
-//                    startActivity(intentSearch);
-//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                    Log.e("sumbite",""+query);
-//                    return true;
-//                }
-//                @Override
-//                public boolean onQueryTextChange(String newText) {
-//                    return false;
-//                }
-//            });
-//        }
-//        if (searchView != null) {
-//            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-//        }
-
         return true;
     }
     @Override
@@ -193,6 +277,15 @@ public class FragmentDetailCar extends AppCompatActivity {
     public void onBackPressed() {
             this.finish();
             super.onBackPressed();
+            editorImage.clear();
+    }
+    //***************Sqlite*********************8
+    public void getDetailSqltie(String IndIDCar){
+        dialogprocess = new ProgressDialog(FragmentDetailCar.this);
+        dialogprocess.setMessage("Please wait");
+        dialogprocess.setCancelable(false);
+        dialogprocess.show();
+
     }
     public void getDetail(String IndIDCar){
         dialogprocess = new ProgressDialog(FragmentDetailCar.this);
