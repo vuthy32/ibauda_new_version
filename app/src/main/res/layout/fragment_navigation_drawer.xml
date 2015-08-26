@@ -10,6 +10,7 @@
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:background="@color/colorPrimary">
 
         <ImageView
