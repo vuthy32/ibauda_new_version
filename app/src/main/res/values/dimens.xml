@@ -12,7 +12,7 @@
 
     <dimen name="title_detailHeader">18sp</dimen>
     <!-- galery columnum-->
-    <integer name="gridtTiem">4</integer>
+    <dimen name="columnGride">110dp</dimen>
 
     <!-- banner size-->
     <dimen name="bannerSqizeImage">900dp</dimen>
@@ -21,4 +21,9 @@
     <dimen name="bannerSqize">250dp</dimen>
 
     <dimen name="gridwieItem">96dp</dimen>
+
+    <dimen name="icon_itemLeft">30sp</dimen>
+    <dimen name="padding_iemmenu">10dp</dimen>
+    <dimen name="titles1">14sp</dimen>
+
 </resources>

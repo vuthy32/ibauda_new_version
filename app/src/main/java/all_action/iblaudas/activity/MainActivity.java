@@ -48,27 +48,28 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private final String[] menuTitleslogin = {
             "Home",
-            "My Order Cars",
-            "My Account",
-            "Contact Us",
+            "My Order",
+            "Chat",
             "Log in"};
-    private final int[] imgslidelogin = {R.drawable.ic_car,
-            R.drawable.ic_car,
-            R.drawable.ic_car,
-            R.drawable.ic_car,
-            R.drawable.ic_car};
+    private final int[] imgslidelogin = {
+            R.drawable.ic_home,
+            R.drawable.ic_car_order,
+            R.drawable.ic_chat,
+            R.drawable.side_view_ic_logout};
 
     //===lgoin out ===
-    private final String[] menuTitles = {"My Favorite Cars",
-            "Featured Cars",
-            "View My Cars",
-            "Edit Profile",
-            "Logout"};
-    private final int[] imgslide = {R.drawable.ic_car,
-            R.drawable.ic_car,
-            R.drawable.ic_car,
-            R.drawable.ic_car,
-            R.drawable.ic_car};
+    private final String[] menuTitles = {
+            "Home",
+            "My Order",
+            "Chat",
+            "My Account",
+            "Log out"};
+    private final int[] imgslide = {
+            R.drawable.ic_home,
+            R.drawable.ic_car_order,
+            R.drawable.ic_chat,
+            R.drawable.side_view_ic_edit_profile,
+            R.drawable.side_view_ic_logout};
 
 
     ArrayList<String> items ;
@@ -115,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
     @Override
     public void onDrawerItemSelected(View view, int position) {
-        Toast.makeText(this,""+items.get(position),Toast.LENGTH_SHORT).show();
-
         displayView(position);
 
     }
@@ -167,14 +166,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         Intent intentActivity;
         Fragment fragment = null;
         title = getString(R.string.app_name);
-
-        switch (position) {
-            case 0:
-                fragment = new HomeFragment();
-                title = getString(R.string.title_home);
-                break;
-            case 1:
-                if (!member_id.equals("")) {
+        Toast.makeText(this,""+items.get(position),Toast.LENGTH_SHORT).show();
+        String MenuItemTitle = items.get(position);
+        if (MenuItemTitle.equals("Home")){
+            fragment = new HomeFragment();
+            title = getString(R.string.app_name);
+        }else if(MenuItemTitle.equals("My Order")){
+            //***********Check User Login Or Not *****************************
+              if (!member_id.equals("")) {
                     intentActivity = new Intent(this, OrderCarListUser.class);
                     startActivity(intentActivity);
                 }else{
@@ -182,41 +181,81 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     startActivity(intentActivity);
                     this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
                 }
-                break;
-            case 2:
-
-                if (!member_id.equals("")) {
-                    intentActivity = new Intent(this, ListChatUser.class);
+            //******************************************************************************************88
+        }else if(MenuItemTitle.equals("Chat")){
+            //***********Check User Login Or Not To Chat *****************************
+            if (!member_id.equals("")) {
+                    intentActivity = new Intent(this, OrderCarListUser.class);
                     startActivity(intentActivity);
-                    Log.d("ListChatUser", "ListChatUser");
                 }else{
-                    Log.d("LoginActivity", "LoginActivity");
                     intentActivity = new Intent(this,LoginActivity.class);
                     startActivity(intentActivity);
                     this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
                 }
-               break;
+            //*******************************************************************************
 
-            case 3:
-                if (!member_id.equals("")) {
-                    Log.d("Login","Log in True");
-                }else{
-                    Log.d("ContactUsFragment","ContactUsFragment");
-                    intentActivity = new Intent(this, ContactUsFragment.class);
-                    startActivityForResult(intentActivity,1);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-
-                break;
-            case 4:
+        }else if(MenuItemTitle.equals("Log in")){
+            //***********Check User Login To Acess *****************************
+                    intentActivity = new Intent(this,LoginActivity.class);
+                    startActivity(intentActivity);
+                    this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
+            //***********Check User Login To Acess *****************************
+        }else if(MenuItemTitle.equals("Log out")){
                     Log.d("Clear user","Log Out True");
                     SharedPreferences.Editor editorUser = user.edit();
                     editorUser.clear();
                     editorUser.commit();
-
-            default:
-                break;
         }
+//        switch (position) {
+//
+//            case 0:
+//                fragment = new HomeFragment();
+//                title = getString(R.string.title_home);
+//                break;
+//            case 1:
+//                if (!member_id.equals("")) {
+//                    intentActivity = new Intent(this, OrderCarListUser.class);
+//                    startActivity(intentActivity);
+//                }else{
+//                    intentActivity = new Intent(this,LoginActivity.class);
+//                    startActivity(intentActivity);
+//                    this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
+//                }
+//                break;
+//            case 2:
+//
+//                if (!member_id.equals("")) {
+//                    intentActivity = new Intent(this, ListChatUser.class);
+//                    startActivity(intentActivity);
+//                    Log.d("ListChatUser", "ListChatUser");
+//                }else{
+//                    Log.d("LoginActivity", "LoginActivity");
+//                    intentActivity = new Intent(this,LoginActivity.class);
+//                    startActivity(intentActivity);
+//                    this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
+//                }
+//               break;
+//
+//            case 3:
+//                if (!member_id.equals("")) {
+//                    Log.d("Login","Log in True");
+//                }else{
+//                    Log.d("ContactUsFragment","ContactUsFragment");
+//                    intentActivity = new Intent(this, ContactUsFragment.class);
+//                    startActivityForResult(intentActivity,1);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                }
+//
+//                break;
+//            case 4:
+//                    Log.d("Clear user","Log Out True");
+//                    SharedPreferences.Editor editorUser = user.edit();
+//                    editorUser.clear();
+//                    editorUser.commit();
+//
+//            default:
+//                break;
+//        }
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

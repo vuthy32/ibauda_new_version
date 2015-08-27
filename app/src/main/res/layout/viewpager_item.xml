@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true">
 
-    <info.androidhive.materialdesign.adapter.TouchImageView
+    <all_action.iblaudas.adapter.TouchImageView
         android:id="@+id/image_slide"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
