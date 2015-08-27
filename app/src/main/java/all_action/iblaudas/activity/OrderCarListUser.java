@@ -64,9 +64,18 @@ public class OrderCarListUser extends AppCompatActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FrameLayout notresult = (FrameLayout)findViewById(R.id.order_frame);
         getLayoutInflater().inflate(R.layout.listview_layout, notresult);
+        SharedPreferences user = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
+        member_no = user.getString("member_no", DEFAULT);
+        remember_token = user.getString("remember_token", DEFAULT);
 
-		new MyCarOrder().execute();
-	
+        if (!member_no.equals("")){
+            new MyCarOrder().execute();
+        }else{
+            Intent upanel = new Intent(OrderCarListUser.this, LoginActivity.class);
+            upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(upanel);
+            this.finish();
+        }
 		
 	}
     @Override
@@ -106,9 +115,7 @@ public class OrderCarListUser extends AppCompatActivity {
 			nDialog.setIndeterminate(false);
 			nDialog.setCancelable(false);
 			nDialog.show();
-            SharedPreferences user = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-    		member_no = user.getString("member_no", DEFAULT);
-    		remember_token = user.getString("remember_token", DEFAULT);
+
  
         }
 

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "info.androidhive.materialdesign"
+        applicationId "all_action.iblaudas"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

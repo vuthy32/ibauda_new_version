@@ -109,32 +109,35 @@ public class HomeFragment extends Fragment{
 
         //mydb.Myqery();
         List<ModelHomeFragment> contactsCars = mydb.getAllCarData();
-        for (ModelHomeFragment cn : contactsCars){
-            ModelHomeFragment PhotoCar = new ModelHomeFragment();
-            PhotoCar.setImageUrl(cn.getImageUrl());
-            PhotoCar.setCarNo("NO: " + cn.getCarNo());
-            PhotoCar.setTitle(cn.getTitle());
-            PhotoCar.setIdexID(cn.getIdexID());
-            PhotoCar.setCityCar(cn.getCityCar());
-            if (cn.getCarFob().equals("0") ||cn.getCarFob().equals("")){
-                carFob = "FOB: Ask For Price";
-            }else{
-                int numberPrice = Integer.parseInt(cn.getCarFob().toString());
-                DecimalFormat dfmal = new DecimalFormat("#,###");
-                String resultPrice = dfmal.format(numberPrice);
-                carFob = "FOB: "+resultPrice+""+cn.getCarFobCurrency();
-            }
-            PhotoCar.setCarFob(carFob);
+        if (contactsCars!=null) {
+            for (ModelHomeFragment cn : contactsCars) {
+                ModelHomeFragment PhotoCar = new ModelHomeFragment();
+                PhotoCar.setImageUrl(cn.getImageUrl());
+                PhotoCar.setCarNo("NO: " + cn.getCarNo());
+                PhotoCar.setTitle(cn.getTitle());
+                PhotoCar.setIdexID(cn.getIdexID());
+                PhotoCar.setCityCar(cn.getCityCar());
+                if (cn.getCarFob().equals("0") || cn.getCarFob().equals("")) {
+                    carFob = "FOB: Ask For Price";
+                } else {
+                    int numberPrice = Integer.parseInt(cn.getCarFob().toString());
+                    DecimalFormat dfmal = new DecimalFormat("#,###");
+                    String resultPrice = dfmal.format(numberPrice);
+                    carFob = "FOB: " + resultPrice + "" + cn.getCarFobCurrency();
+                }
+                PhotoCar.setCarFob(carFob);
 
-            PhotoCar.setStatusNew(cn.getStatusNew());
-            PhotoCar.setStatusReserved(cn.getStatusReserved());
-            ArarryTestMake.add(PhotoCar);
-        }
+                PhotoCar.setStatusNew(cn.getStatusNew());
+                PhotoCar.setStatusReserved(cn.getStatusReserved());
+                ArarryTestMake.add(PhotoCar);
+            }
+
         mAdapterSqlite = new ImageHomeAdapterSqlite(getActivity(),ArarryTestMake);
 //        //  Log.e("Adapter", ""+records.size());
         gridviewMostView = (ListView) getActivity().findViewById(R.id.listViewHome);
         // set adapter grideview
         gridviewMostView.setAdapter(mAdapterSqlite);
+        }
     }
 
 

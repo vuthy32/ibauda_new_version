@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,6 +53,7 @@ public class ListChatUser extends AppCompatActivity implements AdapterView.OnIte
 
     private Handler handler = new Handler();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +68,15 @@ public class ListChatUser extends AppCompatActivity implements AdapterView.OnIte
         user = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         String member_id = user.getString("member_id", "");
         memeber_no = user.getString("memeber_no", "");
+if (!member_id.equals("")){
+    new getUserList().execute();
+}else{
+    Intent upanel = new Intent(ListChatUser.this, LoginActivity.class);
+    upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    startActivity(upanel);
+    this.finish();
+}
 
-        new getUserList().execute();
         handler.postDelayed(runnable, 20000);
         SharedPreferences getmewMsg = getSharedPreferences("getNewMsg", Context.MODE_PRIVATE);
         cmID = getmewMsg.getString("last_cmd", "");
@@ -97,7 +106,7 @@ public class ListChatUser extends AppCompatActivity implements AdapterView.OnIte
     public void onBackPressed() {
         super.onBackPressed();
         ListChatUser.this.finish();
-        this.overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -107,6 +116,7 @@ public class ListChatUser extends AppCompatActivity implements AdapterView.OnIte
         String receiver_no = listUser.get(position).getReceiver().toString();
         String user = listUser.get(position).getUserName().toString();
         Intent chat = new Intent(ListChatUser.this, ChatActivity.class);
+
         SharedPreferences chatSetting = getSharedPreferences("chatSetting", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = chatSetting.edit();
         editor.putString("receiver_no", receiver_no);
@@ -118,6 +128,7 @@ public class ListChatUser extends AppCompatActivity implements AdapterView.OnIte
         chat.putExtra("user", user);
         chat.putExtra("listchat",4);
         startActivity(chat);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 
@@ -181,8 +192,6 @@ public class ListChatUser extends AppCompatActivity implements AdapterView.OnIte
                         listView.setOnItemClickListener(ListChatUser.this);
                         Log.e("HellNew=",""+jsonobject.getString("new_count"));
                     }
-
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

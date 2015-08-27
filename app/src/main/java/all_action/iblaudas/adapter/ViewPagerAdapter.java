@@ -97,7 +97,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 				if (thumbNail_slide!=null){
 					thumbNail_slide.setImageBitmap(bitmap);
 				}else{
-					thumbNail_slide.setImageResource(R.drawable.detail_placeholder);
+					//thumbNail_slide.setImageResource(R.drawable.detail_placeholder);
 				}
 			}
 

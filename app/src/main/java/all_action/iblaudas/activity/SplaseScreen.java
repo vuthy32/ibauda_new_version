@@ -17,18 +17,23 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +42,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.FileChannel;
 
+import all_action.iblaudas.CheckInternet.ConnectionDetector;
 import all_action.iblaudas.R;
 import all_action.iblaudas.function_api.JSONParserGet;
 import all_action.iblaudas.json_url.UrlJsonLink;
@@ -57,52 +64,58 @@ public class SplaseScreen extends AppCompatActivity {
     ProgressBar progressBar;
     TextView tv;
     int prg = 0;
-
+    ConnectionDetector connectionDetectorInternet;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.splas_layout);
-        // Handler x = new Handler();
-        //  x.postDelayed(new SplashHandler(), 2000);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        connectionDetectorInternet = new  ConnectionDetector(this);
         PACKAG_PAHT = this.getPackageName();
-        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-        mboolean = settings.getBoolean("FIRST_RUN", false);
-        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-        if (!mboolean) {
-            settings = getSharedPreferences("PREFS_NAME", 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("FIRST_RUN", true);
-            Log.e("First Runing", "First Runing getJson");
-            editor.commit();
+//        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+//        mboolean = settings.getBoolean("FIRST_RUN", false);
+//        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+//        if (!mboolean) {
+//            settings = getSharedPreferences("PREFS_NAME", 0);
+//            SharedPreferences.Editor editor = settings.edit();
+//            editor.putBoolean("FIRST_RUN", true);
+//            Log.e("First Runing", "First Runing getJson");
+//            editor.commit();
+//             new DownloadFileFromURL().execute(file_url);
+//
+//        }else{
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Intent i = new Intent(SplaseScreen.this, MainActivity.class);
+//                    startActivity(i);
+//                    finish();
+//                }
+//            }, SPLASH_TIME_OUT);
+//            Log.e("First Runing", " Runing AnyTime");
+//            // Log.e("Firs", );
+//        }
+        if (!connectionDetectorInternet.isConnectingToInternet()) {
+                Intent i = new Intent(SplaseScreen.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            //Toast.makeText(this,"dfdf",Toast.LENGTH_SHORT).show();
+        }else {
             new DownloadFileFromURL().execute(file_url);
-
-        }else{
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent i = new Intent(SplaseScreen.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            }, SPLASH_TIME_OUT);
-            Log.e("First Runing", " Runing AnyTime");
-            // Log.e("Firs", );
+            //Toast.makeText(this,"Intner",Toast.LENGTH_SHORT).show();
         }
-        //doDownload(file_url,"sqlite");
-       // new DownloadFileFromURL().execute(file_url);
 
     }
+
+
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        long maxMemory = Runtime.getRuntime().maxMemory();
-        long totalMemory= Runtime.getRuntime().totalMemory();
-        long FreeMemory = Runtime.getRuntime().freeMemory();
-        Log.d("MemoryLow","maxMemory="+maxMemory+",totalMemory="+totalMemory+";freeMemory="+FreeMemory);
+        Toast.makeText(this,"Please remove some app in your phone",Toast.LENGTH_SHORT).show();
+        this.finish();
     }
 
     class DownloadFileFromURL extends AsyncTask<String, Integer, String> {
@@ -117,11 +130,11 @@ public class SplaseScreen extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... progress) {
             // Making progress bar visible
-            progressBar.setVisibility(View.VISIBLE);
-            // updating progress bar value
-            progressBar.setProgress(progress[0]);
-            // updating percentage value
-            tv.setText(String.valueOf(progress[0]) + "%");
+//            progressBar.setVisibility(View.VISIBLE);
+//            // updating progress bar value
+//            progressBar.setProgress(progress[0]);
+//            // updating percentage value
+//            tv.setText(String.valueOf(progress[0]) + "%");
         }
         @Override
         protected String doInBackground(String... f_url) {
@@ -130,36 +143,22 @@ public class SplaseScreen extends AppCompatActivity {
                 URL url = new URL(f_url[0]);
                 URLConnection conection = url.openConnection();
                 conection.connect();
-                int lenghtOfFile = conection.getContentLength();
-
                 File wallpaperDirectory = new File("/sdcard/Android/data/"+PACKAG_PAHT);
 // have the object build the directory structure, if needed.
                 wallpaperDirectory.mkdirs();
-                long startTime = System.currentTimeMillis();
 // create a File object for the output file
                 File outputFile = new File(wallpaperDirectory,UrlJsonLink.DATABASE_NAME);
-
-                long bytes = outputFile.length();
-
-                Log.d("ANDRO_ASYNC", "Length of file: " + bytes);
-
-
+               // Log.d("ANDRO_ASYNC", "Length of file: " + lenghtOfFile);
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 // Output stream to write file
                 OutputStream output = new FileOutputStream(outputFile);
                 byte data[] = new byte[1024];
                 long total = 0;
-
                 while ((count = input.read(data)) != -1) {
                     total += count;
-                    publishProgress((int) ((total * 100) / count));
+                  //  publishProgress((int) ((total * 100)/total-count));
                     output.write(data, 0, count);
                 }
-
-//                Log.d("ImageManager", "download ready in"
-//                        + ((System.currentTimeMillis() - startTime) / 1000)
-//                        + " sec,"+((System.currentTimeMillis() - startTime) / 1000)/600);
-                // flushing output
                 output.flush();
                 // closing streams
                 output.close();
@@ -223,56 +222,6 @@ public class SplaseScreen extends AppCompatActivity {
         };
     };
     //***The end********************
-
-    protected void doDownload(final String urlLink, final String fileName) {
-        Thread dx = new Thread() {
-
-            public void run() {
-
-                File root = android.os.Environment.getExternalStorageDirectory();
-                File dir = new File (root.getAbsolutePath() + "/Content2/");
-                if(dir.exists()==false) {
-                    dir.mkdirs();
-                }
-                //Save the path as a string value
-
-                try
-                {
-                    URL url = new URL(urlLink);
-                    Log.i("FILE_NAME", "File name is "+fileName);
-                    Log.i("FILE_URLLINK", "File URL is "+url);
-                    URLConnection connection = url.openConnection();
-                    connection.connect();
-                    // this will be useful so that you can show a typical 0-100% progress bar
-                    int fileLength = connection.getContentLength();
-                    Log.i("FILE_URLLINK232", "File URL is "+fileLength);
-                    // download the file
-                    InputStream input = new BufferedInputStream(url.openStream());
-                    OutputStream output = new FileOutputStream(dir+"/"+fileName);
-
-                    byte data[] = new byte[1024];
-                    long total = 0;
-                    int count;
-                    while ((count = input.read(data)) != -1) {
-                        total += count;
-
-                        output.write(data, 0, count);
-                    }
-
-                    output.flush();
-                    output.close();
-                    input.close();
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                    Log.i("ERROR ON DOWNLOADING FILES", "ERROR IS" +e);
-                }
-            }
-        };
-
-        dx.start();
-    }
 
 
 

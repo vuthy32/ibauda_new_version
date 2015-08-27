@@ -163,10 +163,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         return super.onOptionsItemSelected(item);
     }
     private void displayView(final int position) {
+        onResume();
         Intent intentActivity;
         Fragment fragment = null;
         title = getString(R.string.app_name);
-        Toast.makeText(this,""+items.get(position),Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this,""+items.get(position),Toast.LENGTH_SHORT).show();
         String MenuItemTitle = items.get(position);
         if (MenuItemTitle.equals("Home")){
             fragment = new HomeFragment();
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
               if (!member_id.equals("")) {
                     intentActivity = new Intent(this, OrderCarListUser.class);
                     startActivity(intentActivity);
+                  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }else{
                     intentActivity = new Intent(this,LoginActivity.class);
                     startActivity(intentActivity);
@@ -185,8 +187,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }else if(MenuItemTitle.equals("Chat")){
             //***********Check User Login Or Not To Chat *****************************
             if (!member_id.equals("")) {
-                    intentActivity = new Intent(this, OrderCarListUser.class);
+                    intentActivity = new Intent(this, ListChatUser.class);
                     startActivity(intentActivity);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }else{
                     intentActivity = new Intent(this,LoginActivity.class);
                     startActivity(intentActivity);
@@ -196,47 +199,23 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         }else if(MenuItemTitle.equals("Log in")){
             //***********Check User Login To Acess *****************************
-                    intentActivity = new Intent(this,LoginActivity.class);
-                    startActivity(intentActivity);
-                    this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
+                      intentActivity = new Intent(this,LoginActivity.class);
+                      startActivity(intentActivity);
+                     this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
             //***********Check User Login To Acess *****************************
         }else if(MenuItemTitle.equals("Log out")){
-                    Log.d("Clear user","Log Out True");
-                    SharedPreferences.Editor editorUser = user.edit();
-                    editorUser.clear();
-                    editorUser.commit();
+                    Log.d("Clear user", "Log Out True");
+                    for (int i = 0; i < menuTitles.length; i++) {
+                        items.remove(menuTitles[i]);
+                    }
+                    for (int i = 0; i < menuTitleslogin.length; i++) {
+                        items.add(menuTitleslogin[i]);
+                    }
+
+                    adapter.notifyDataSetChanged();
+                    user.edit().clear().commit();
+
         }
-//        switch (position) {
-//
-//            case 0:
-//                fragment = new HomeFragment();
-//                title = getString(R.string.title_home);
-//                break;
-//            case 1:
-//                if (!member_id.equals("")) {
-//                    intentActivity = new Intent(this, OrderCarListUser.class);
-//                    startActivity(intentActivity);
-//                }else{
-//                    intentActivity = new Intent(this,LoginActivity.class);
-//                    startActivity(intentActivity);
-//                    this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
-//                }
-//                break;
-//            case 2:
-//
-//                if (!member_id.equals("")) {
-//                    intentActivity = new Intent(this, ListChatUser.class);
-//                    startActivity(intentActivity);
-//                    Log.d("ListChatUser", "ListChatUser");
-//                }else{
-//                    Log.d("LoginActivity", "LoginActivity");
-//                    intentActivity = new Intent(this,LoginActivity.class);
-//                    startActivity(intentActivity);
-//                    this.overridePendingTransition(R.anim.abc_slide_in_top, R.anim.abc_slide_out_bottom);
-//                }
-//               break;
-//
-//            case 3:
 //                if (!member_id.equals("")) {
 //                    Log.d("Login","Log in True");
 //                }else{
@@ -245,16 +224,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 //                    startActivityForResult(intentActivity,1);
 //                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 //                }
-//
-//                break;
-//            case 4:
-//                    Log.d("Clear user","Log Out True");
-//                    SharedPreferences.Editor editorUser = user.edit();
-//                    editorUser.clear();
-//                    editorUser.commit();
-//
-//            default:
-//                break;
+
 //        }
 
         if (fragment != null) {
@@ -272,18 +242,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("MainActivityResult", "Resualt" + resultCode);
-
-
-
     }
 
-    private void hideKeyboard(View view) {
-        // Check if no view has focus:
-        if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-        }
-    }
     //*****************************Back Close App Fuction*************************
     int backButtonCount = 0;
     @Override
@@ -295,6 +255,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
     }//****************End******************************************
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //user.edit().clear().commit();
+        adapter.notifyDataSetChanged();
+        Log.d("LoginOur","JHerwe");
+    }
 
 
 }

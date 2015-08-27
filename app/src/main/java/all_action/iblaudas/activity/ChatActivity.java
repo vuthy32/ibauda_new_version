@@ -389,6 +389,6 @@ public class ChatActivity extends AppCompatActivity implements OnItemClickListen
     public void onBackPressed() {
         super.onBackPressed();
         ChatActivity.this.finish();
-        this.overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
