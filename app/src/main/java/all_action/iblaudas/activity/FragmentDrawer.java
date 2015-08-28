@@ -5,6 +5,7 @@ package all_action.iblaudas.activity;
  */
 
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import all_action.iblaudas.R;
 
@@ -41,9 +43,11 @@ public class FragmentDrawer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Typeface custom_font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/HelveticaNeueCondensedBold.otf");
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
+        TextView fullNameUser = (TextView)layout.findViewById(R.id.txt_fullname);
+        fullNameUser.setTypeface(custom_font);
         recyclerView = (ListView)layout.findViewById(R.id.drawerList);
         recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

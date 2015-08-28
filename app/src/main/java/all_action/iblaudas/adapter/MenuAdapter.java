@@ -3,6 +3,7 @@ package all_action.iblaudas.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,9 @@ public class MenuAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Typeface custom_font = Typeface.createFromAsset(context.getAssets(), "fonts/HelveticaNeueCondensedBold.otf");
 		convertView = inflater.inflate(R.layout.drawer_list_item, null);
-		user = context.getSharedPreferences("userinfo", Context.MODE_PRIVATE);
-		full_name = user.getString("full_name", "");
+
 		final String dataleftmenu = getItem(position);
 		TextView title = (TextView) convertView.findViewById(R.id.title);
         ImageView imageView = (ImageView)convertView.findViewById(R.id.icon);
@@ -43,7 +44,7 @@ public class MenuAdapter extends BaseAdapter {
 
 		title.setText(getItem(position));
         imageView.setImageResource(iconImage.get(position));
-
+		title.setTypeface(custom_font);
 		return convertView;
 	}
 

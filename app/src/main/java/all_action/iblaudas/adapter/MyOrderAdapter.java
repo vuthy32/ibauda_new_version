@@ -88,12 +88,12 @@ public class MyOrderAdapter extends BaseAdapter {
             txt_newstatus.setVisibility(View.INVISIBLE);
 //        }
         TextView txtSaleOrReversed = (TextView)convertView.findViewById(R.id.txtReserved);
-//        if(mRecords.getStatusReserved().equals("sale")){
+        if(mRecords.getStatusReserved().equals("sale")){
             txtSaleOrReversed.setVisibility(View.INVISIBLE);
-//        }else{
-////            txtSaleOrReversed.setBackgroundResource(R.color.reversed_color_text);
-//            txtSaleOrReversed.setText(mRecords.getStatusReserved());
-//        }
+        }else{
+           txtSaleOrReversed.setBackgroundResource(R.color.reversed_color_text);
+            txtSaleOrReversed.setText(mRecords.getStatusReserved());
+        }
 
         return convertView;
     }

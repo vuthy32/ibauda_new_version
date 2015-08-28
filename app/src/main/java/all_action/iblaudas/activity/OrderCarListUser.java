@@ -138,9 +138,8 @@ public class OrderCarListUser extends AppCompatActivity {
 					try {
                         ModelHomeFragment PhotoCar = new ModelHomeFragment();
 						JSONObject obj = response.getJSONObject(i);
-
                         String carFob;
-                       Log.e("dafsd,",obj.getString("image_name"));
+                        Log.e("created_status,","," + obj.getString("icon_status"));
                         PhotoCar.setImageUrl(obj.getString("image_name"));
                         PhotoCar.setCarNo("NO: " + obj.getString("car_stock_no"));
                         PhotoCar.setTitle(obj.getString("car_make") + " " + obj.getString("car_model") + " " + obj.getString("car_year_start"));
@@ -155,8 +154,9 @@ public class OrderCarListUser extends AppCompatActivity {
                             carFob = "FOB: "+resultPrice+""+obj.getString("car_fob_currency");
                         }
                         PhotoCar.setCarFob(carFob);
+
 //                        PhotoCar.setStatusNew(obj.getString("created_status"));
-//                        PhotoCar.setStatusReserved(obj.getString("icon_status"));
+                        PhotoCar.setStatusReserved(obj.getString("icon_status"));
 
                         listOrder.add(PhotoCar);
 
