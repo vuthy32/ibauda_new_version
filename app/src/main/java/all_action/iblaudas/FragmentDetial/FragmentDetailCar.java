@@ -273,7 +273,7 @@ public class FragmentDetailCar extends AppCompatActivity {
             this.finish();
             super.onBackPressed();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            editorImage.clear();
+           // editorImage.clear();
     }
     //***************Sqlite*********************
     public void getDetail(String IndIDCar){
