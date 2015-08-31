@@ -106,12 +106,12 @@ public class FragmentDetailCar extends AppCompatActivity {
             for (ModelHomeFragment cnP : contactsCarPhoto){
                 i++;
                 myArrayList.add(cnP.getImageUrl());
-                 if (cnP.getSortPhoto().equals("1")){
+                 if (cnP.getSortPhoto().equals("0")){
                      url=cnP.getPhotoUrl();
                      Log.e("HeaderUrl",url);
-                 }else{
-                     if (cnP.getSortPhoto().equals("2"))
-                         url=cnP.getPhotoUrl();
+//                 }else{
+//                     if (cnP.getSortPhoto().equals("2"))
+//                         url=cnP.getPhotoUrl();
                  }
                 Log.e("i=", "" + i);
             }

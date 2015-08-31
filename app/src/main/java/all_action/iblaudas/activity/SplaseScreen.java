@@ -1,54 +1,34 @@
 package all_action.iblaudas.activity;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PowerManager;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.util.ByteArrayBuffer;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.android.gcm.GCMRegistrar;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.channels.FileChannel;
 
-import all_action.iblaudas.CheckInternet.ConnectionDetector;
+import  all_action.iblaudas.CheckInternet.ConnectionDetector;
+
+import all_action.iblaudas.Pushnotification.ServerUtilities;
 import all_action.iblaudas.R;
-import all_action.iblaudas.function_api.JSONParserGet;
 import all_action.iblaudas.json_url.UrlJsonLink;
-
+import static all_action.iblaudas.Pushnotification.CommonUtilities.SENDER_ID;
 /**
  * Created by sunry on 8/17/2015.
  */
@@ -64,6 +44,8 @@ public class SplaseScreen extends AppCompatActivity {
     ProgressBar progressBar;
     TextView tv;
     int prg = 0;
+    AsyncTask<Void, Void, Void> mRegisterTask;
+
     ConnectionDetector connectionDetectorInternet;
     @Override
     public void onCreate(Bundle icicle) {
@@ -104,8 +86,51 @@ public class SplaseScreen extends AppCompatActivity {
             //Toast.makeText(this,"dfdf",Toast.LENGTH_SHORT).show();
         }else {
             new DownloadFileFromURL().execute(file_url);
-            //Toast.makeText(this,"Intner",Toast.LENGTH_SHORT).show();
-        }
+
+            GCMRegistrar.checkDevice(this);
+            GCMRegistrar.checkManifest(this);
+            final String regId = GCMRegistrar.getRegistrationId(this);
+
+            // Check if regid already presents
+            if (regId.equals("")) {
+                // Registration is not present, register now with GCM
+                GCMRegistrar.register(this, SENDER_ID);
+            } else {
+                // Device is already registered on GCM
+                if (GCMRegistrar.isRegisteredOnServer(this)) {
+                    //Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_LONG).show();
+                    // Skips registration.
+                    //Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
+                } else {
+                    // Try to register again, but not in the UI thread.
+                    // It's also necessary to cancel the thread onDestroy(),
+                    // hence the use of AsyncTask instead of a raw thread.
+                    final Context context = this;
+                    mRegisterTask = new AsyncTask<Void, Void, Void>() {
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            // Register on our server
+                            // On server creates a new user
+                            ServerUtilities.register(context, regId);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void result) {
+                            mRegisterTask = null;
+                        }
+
+                    };
+                    mRegisterTask.execute(null, null, null);
+                }
+            }
+            Log.d("NumberPhoneID", "" + regId);
+       }
+        //==========notification========
+
+
+
 
     }
 

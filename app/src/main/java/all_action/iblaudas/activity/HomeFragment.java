@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment{
                     int numberPrice = Integer.parseInt(cn.getCarFob().toString());
                     DecimalFormat dfmal = new DecimalFormat("#,###");
                     String resultPrice = dfmal.format(numberPrice);
-                    carFob = "FOB: " + resultPrice + "" + cn.getCarFobCurrency();
+                    carFob = "FOB: " + resultPrice + " " + cn.getCarFobCurrency();
                 }
                 PhotoCar.setCarFob(carFob);
 
