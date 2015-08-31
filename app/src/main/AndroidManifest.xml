@@ -19,7 +19,7 @@
         android:theme="@style/MyMaterialTheme"
         android:configChanges="keyboardHidden|orientation">
         <activity
-            android:name=".activity.SplaseScreen"
+            android:name=".activity.SplaseScreen" android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <!-- Main Activity -->
-        <activity android:name=".activity.MainActivity"
+        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -38,7 +38,7 @@
         <!-- register activity-->
         <activity
             android:name=".activity.Register"
-            android:windowSoftInputMode="stateHidden"
+            android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait"
             ></activity>
         <!-- detail activity-->
         <activity android:name=".FragmentDetial.FragmentDetailCar"
@@ -46,34 +46,38 @@
         </activity>
         <!-- Login Activity-->
         <activity android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait">
         </activity>
         <!-- Order Activity-->
-        <activity android:name=".activity.OrderCarListUser"
+        <activity android:name=".activity.OrderCarListUser" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
 
         <!-- ChatUser Activity-->
-        <activity android:name=".activity.ListChatUser"
+        <activity android:name=".activity.ListChatUser" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>TouchImageView
         <!-- ChatActivtyt Activity-->
-        <activity android:name=".activity.ChatActivity"
+        <activity android:name=".activity.ChatActivity" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <!-- SearchResult Activity-->
-        <activity android:name=".activity.SearchResultActivity"
+        <activity android:name=".activity.SearchResultActivity" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
         <!-- ChatActivtyt Activity-->
-        <activity android:name=".activity.ContactUsFragment"
+        <activity android:name=".activity.ContactUsFragment" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <!-- ChatActivtyt Activity-->
-        <activity android:name=".FragmentDetial.ActivitySwipImage"
+        <activity android:name=".FragmentDetial.ActivitySwipImage" android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <!-- ChatActivtyt Activity-->
+        <activity android:name=".activity.MyAccount" android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
 

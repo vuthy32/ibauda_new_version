@@ -197,6 +197,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 }
             //*******************************************************************************
 
+        }else if(MenuItemTitle.equals("My Account")){
+                intentActivity = new Intent(this, MyAccount.class);
+                startActivity(intentActivity);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }else if(MenuItemTitle.equals("Log in")){
             //***********Check User Login To Acess *****************************
                       intentActivity = new Intent(this,LoginActivity.class);

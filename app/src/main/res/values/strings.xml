@@ -168,5 +168,8 @@
 
     </string-array>
 
-
+    <string name="memberId">Member Id</string>
+    <string name="fulname">Full Name</string>
+    <string name="email1">Email</string>
+    <string name="country1">Country</string>
 </resources>
