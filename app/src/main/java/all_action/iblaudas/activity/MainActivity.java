@@ -145,7 +145,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             });
         }
         if (searchView != null) {
-            Log.e("sumbite","sdsd");
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
         }
         return true;

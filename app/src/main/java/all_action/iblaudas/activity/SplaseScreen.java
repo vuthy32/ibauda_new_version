@@ -2,6 +2,7 @@ package all_action.iblaudas.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import java.net.URLConnection;
 
 import  all_action.iblaudas.CheckInternet.ConnectionDetector;
 
+import all_action.iblaudas.Dialog.DialogManager;
 import all_action.iblaudas.Pushnotification.ServerUtilities;
 import all_action.iblaudas.R;
 import all_action.iblaudas.json_url.UrlJsonLink;
@@ -47,6 +49,7 @@ public class SplaseScreen extends AppCompatActivity {
     AsyncTask<Void, Void, Void> mRegisterTask;
 
     ConnectionDetector connectionDetectorInternet;
+    DialogManager dialogManager;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -54,43 +57,25 @@ public class SplaseScreen extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        tv = (TextView) findViewById(R.id.tvId);
+
+        dialogManager = new DialogManager();
         connectionDetectorInternet = new  ConnectionDetector(this);
         PACKAG_PAHT = this.getPackageName();
-//        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
-//        mboolean = settings.getBoolean("FIRST_RUN", false);
-//        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-//        if (!mboolean) {
-//            settings = getSharedPreferences("PREFS_NAME", 0);
-//            SharedPreferences.Editor editor = settings.edit();
-//            editor.putBoolean("FIRST_RUN", true);
-//            Log.e("First Runing", "First Runing getJson");
-//            editor.commit();
-//             new DownloadFileFromURL().execute(file_url);
-//
-//        }else{
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Intent i = new Intent(SplaseScreen.this, MainActivity.class);
-//                    startActivity(i);
-//                    finish();
-//                }
-//            }, SPLASH_TIME_OUT);
-//            Log.e("First Runing", " Runing AnyTime");
-//            // Log.e("Firs", );
-//        }
-        if (!connectionDetectorInternet.isConnectingToInternet()) {
-                Intent i = new Intent(SplaseScreen.this, MainActivity.class);
-                startActivity(i);
-                finish();
-            //Toast.makeText(this,"dfdf",Toast.LENGTH_SHORT).show();
-        }else {
-            new DownloadFileFromURL().execute(file_url);
-
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        if (!mboolean) {
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            Log.e("First Runing", "First Runing getJson");
+            editor.commit();
+            tv.setText("Please wait downloading");
+            //*******************************************************************************8
             GCMRegistrar.checkDevice(this);
             GCMRegistrar.checkManifest(this);
             final String regId = GCMRegistrar.getRegistrationId(this);
-
             // Check if regid already presents
             if (regId.equals("")) {
                 // Registration is not present, register now with GCM
@@ -98,16 +83,9 @@ public class SplaseScreen extends AppCompatActivity {
             } else {
                 // Device is already registered on GCM
                 if (GCMRegistrar.isRegisteredOnServer(this)) {
-                    //Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_LONG).show();
-                    // Skips registration.
-                    //Toast.makeText(getApplicationContext(), "Already registered with GCM", Toast.LENGTH_LONG).show();
                 } else {
-                    // Try to register again, but not in the UI thread.
-                    // It's also necessary to cancel the thread onDestroy(),
-                    // hence the use of AsyncTask instead of a raw thread.
                     final Context context = this;
                     mRegisterTask = new AsyncTask<Void, Void, Void>() {
-
                         @Override
                         protected Void doInBackground(Void... params) {
                             // Register on our server
@@ -115,17 +93,28 @@ public class SplaseScreen extends AppCompatActivity {
                             ServerUtilities.register(context, regId);
                             return null;
                         }
-
                         @Override
                         protected void onPostExecute(Void result) {
                             mRegisterTask = null;
                         }
-
                     };
                     mRegisterTask.execute(null, null, null);
                 }
             }
             Log.d("NumberPhoneID", "" + regId);
+            //*******************************************************************************8
+        }else{
+            tv.setText("Please wait updating");
+            Log.e("First Runing", " Runing AnyTime");
+            // Log.e("Firs", );
+        }
+        if (!connectionDetectorInternet.isConnectingToInternet()) {
+                Intent i = new Intent(SplaseScreen.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            //Toast.makeText(this,"dfdf",Toast.LENGTH_SHORT).show();
+        }else {
+            new DownloadFileFromURL().execute(file_url);
        }
         //==========notification========
 
@@ -139,7 +128,7 @@ public class SplaseScreen extends AppCompatActivity {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        Toast.makeText(this,"Please remove some app in your phone",Toast.LENGTH_SHORT).show();
+        dialogManager.showAlertDialog(this, "IBLUDA MESSAGE", "Please remove other app menory full", false);
         this.finish();
     }
 
