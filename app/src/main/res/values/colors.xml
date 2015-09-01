@@ -31,5 +31,6 @@
 
     <color name="reversed_color_textdata">#544646</color>
     <color name="reversed_color_text">#99FFFFF0</color>
-
+    <color name="list_item_title">#fff</color>
+    <color name="hin_color">#605e5e</color>
 </resources>

@@ -1,6 +1,5 @@
 package all_action.iblaudas.activity;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,13 +9,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,11 +47,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "Home",
             "My Order",
             "Chat",
+            "Search Vehicles",
             "Log in"};
     private final int[] imgslidelogin = {
             R.drawable.ic_home,
             R.drawable.ic_car_order,
             R.drawable.ic_chat,
+            R.drawable.side_view_ic_search,
             R.drawable.side_view_ic_logout};
 
     //===lgoin out ===
@@ -63,12 +62,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             "My Order",
             "Chat",
             "My Account",
+            "Search Vehicles",
             "Log out"};
     private final int[] imgslide = {
             R.drawable.ic_home,
             R.drawable.ic_car_order,
             R.drawable.ic_chat,
             R.drawable.side_view_ic_edit_profile,
+            R.drawable.side_view_ic_search,
             R.drawable.side_view_ic_logout};
 
 
@@ -124,31 +125,31 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         searchItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager)getApplication().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    Intent intentSearch = new Intent(MainActivity.this,SearchResultActivity.class);
-                    intentSearch.putExtra("search_data",query);
-                    startActivityForResult(intentSearch, 2);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    Log.e("sumbite",""+query);
-                    return true;
-                }
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-            });
-        }
-        if (searchView != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-        }
+//        SearchManager searchManager = (SearchManager)getApplication().getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = null;
+//        if (searchItem != null) {
+//            searchView = (SearchView) searchItem.getActionView();
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    Intent intentSearch = new Intent(MainActivity.this,SearchResultActivity.class);
+//                    intentSearch.putExtra("search_data",query);
+//                    startActivityForResult(intentSearch, 2);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    Log.e("sumbite",""+query);
+//                    return true;
+//                }
+//                @Override
+//                public boolean onQueryTextChange(String newText) {
+//                    return false;
+//                }
+//            });
+//        }
+//        if (searchView != null) {
+//            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//            searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+//        }
         return true;
     }
     @Override
@@ -158,7 +159,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            Intent searchTab = new Intent(this,SearchActivity.class);
+            startActivity(searchTab);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -202,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 intentActivity = new Intent(this, MyAccount.class);
                 startActivity(intentActivity);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }else if(MenuItemTitle.equals("Search Vehicles")){
+                intentActivity = new Intent(this, SearchActivity.class);
+                startActivity(intentActivity);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }else if(MenuItemTitle.equals("Log in")){
             //***********Check User Login To Acess *****************************
                       intentActivity = new Intent(this,LoginActivity.class);
@@ -221,16 +229,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     user.edit().clear().commit();
 
         }
-//                if (!member_id.equals("")) {
-//                    Log.d("Login","Log in True");
-//                }else{
-//                    Log.d("ContactUsFragment","ContactUsFragment");
-//                    intentActivity = new Intent(this, ContactUsFragment.class);
-//                    startActivityForResult(intentActivity,1);
-//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                }
 
-//        }
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

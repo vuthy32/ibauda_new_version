@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/textColorPrimary"
+    android:fillViewport="false">
+
+    <include
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView"
+    android:background="@color/list_item_title"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:paddingRight="10dp"
+         >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical" >
+
+            <Spinner
+                android:id="@+id/sp_location"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/boxsize_spinner"
+                android:layout_marginBottom="10dp"
+                android:paddingTop="@dimen/boxsize"
+                android:paddingBottom="@dimen/boxsize"
+                android:background="@drawable/spinner_style"
+                android:entries="@array/SpLocation" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="vertical" >
+
+                    <Spinner
+                        android:id="@+id/sp_make"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/boxsize_spinner"
+                        android:layout_marginBottom="10dp"
+                        android:entries="@array/arr_mak"
+                        android:paddingTop="@dimen/boxsize"
+                        android:paddingBottom="@dimen/boxsize"
+                        android:layout_marginRight="2sp"
+                        android:background="@drawable/spinner_style"
+                        android:gravity="left" />
+
+                    <Spinner
+                        android:id="@+id/sp_model"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/boxsize_spinner"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/spinner_style"
+                        android:paddingTop="@dimen/boxsize"
+                        android:paddingBottom="@dimen/boxsize"
+                        android:layout_marginLeft="2sp"
+                        android:entries="@array/arr_model" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
+                    android:gravity="right"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/sp_nin_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingTop="@dimen/boxsize"
+                        android:paddingBottom="@dimen/boxsize"
+                        android:paddingLeft="10sp"
+                        android:inputType="number"
+                        android:layout_marginRight="2sp"
+                        android:hint="Min Price"
+                        android:textColorHint="@color/hin_color"
+                        android:background="@drawable/search_style"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.55"
+                    android:gravity="left"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/sp_nan_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/search_style"
+                        android:paddingTop="@dimen/boxsize"
+                        android:paddingBottom="@dimen/boxsize"
+                        android:paddingLeft="10sp"
+
+                        android:inputType="number"
+                        android:hint="Max Price"
+                        android:textColorHint="@color/hin_color"
+                        android:layout_marginLeft="2sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
+                    android:gravity="right"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/sp_nin_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingTop="@dimen/boxsize"
+                        android:paddingBottom="@dimen/boxsize"
+                        android:paddingLeft="10sp"
+                        android:hint="Min Year"
+                        android:inputType="number"
+                        android:layout_marginRight="2sp"
+                        android:textColorHint="@color/hin_color"
+                        android:background="@drawable/search_style"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.55"
+                    android:gravity="left"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@+id/sp_nan_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10sp"
+                        android:layout_marginLeft="2sp"
+                        android:paddingTop="@dimen/boxsize"
+                        android:paddingBottom="@dimen/boxsize"
+                        android:textColorHint="@color/hin_color"
+                        android:background="@drawable/search_style"
+                        android:hint="Max Year"
+                        android:ems="10" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.55"
+                android:gravity="left"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/offerNo_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5sp"
+                    android:paddingTop="@dimen/boxsize"
+                    android:paddingBottom="@dimen/boxsize"
+                    android:textColorHint="@color/hin_color"
+                    android:background="@drawable/search_style"
+                    android:hint="@string/offerclassno"
+                    android:ems="10" >
+                </EditText>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btn_search"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textColor="@color/list_item_title"
+                android:background="@drawable/button_radius"
+                android:text="@string/button_search" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
+</LinearLayout>

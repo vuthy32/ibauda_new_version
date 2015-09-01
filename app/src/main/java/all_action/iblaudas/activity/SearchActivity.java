@@ -3,6 +3,7 @@ package all_action.iblaudas.activity;
 /**
  * Created by Ravi on 29/07/15.
  */
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -48,17 +49,17 @@ import all_action.iblaudas.json_url.UrlJsonLink;
 
 import static com.google.android.gms.internal.zzhl.runOnUiThread;
 
-public class ContactUsFragment extends AppCompatActivity{
+public class SearchActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private TextView headText;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_contact);
+        setContentView(R.layout.layout_search);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         headText = (TextView) findViewById(R.id.toolbar_title);
-        headText.setText(R.string.menu_contact_us);
+        headText.setText(R.string.action_search);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

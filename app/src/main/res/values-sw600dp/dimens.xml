@@ -1,4 +1,6 @@
 <resources>
+    <dimen name="boxsize">14dp</dimen>
+    <dimen name="boxsize_spinner">55dp</dimen>
 
     <dimen name="size_image_list">125dp</dimen>
 
