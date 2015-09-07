@@ -6,3 +6,8 @@
 /build
 /captures
 *.iml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+settings.gradle
