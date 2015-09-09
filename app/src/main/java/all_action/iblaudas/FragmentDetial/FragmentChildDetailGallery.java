@@ -61,22 +61,26 @@ GalleryGridViewAdapter galleryGridViewAdapter;
             editorImage.commit();
 
         }
-        galleryGridViewAdapter = new GalleryGridViewAdapter(getActivity(),arrayListItems);
-        gridViewGallery.setAdapter(galleryGridViewAdapter);
-        gridViewGallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SharedPreferences CheckCarID = getActivity().getSharedPreferences("CheckCarID", 0);
-                SharedPreferences.Editor userEditer=CheckCarID.edit();
-                userEditer.putString("indexID",IndexID);
-                userEditer.commit();
-                Intent gridGallery =new Intent(getActivity(),ActivitySwipImage.class);
-                gridGallery.addFlags(gridGallery.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(gridGallery);
-                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-        Log.d("ArraySize",""+ArraySize);
+       // if (contactsCarPhoto.size()>0) {
+            galleryGridViewAdapter = new GalleryGridViewAdapter(getActivity(), arrayListItems);
+            gridViewGallery.setAdapter(galleryGridViewAdapter);
+
+            gridViewGallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    SharedPreferences CheckCarID = getActivity().getSharedPreferences("CheckCarID", 0);
+                    SharedPreferences.Editor userEditer = CheckCarID.edit();
+                    userEditer.putString("indexID", IndexID);
+                    userEditer.commit();
+                    Intent gridGallery = new Intent(getActivity(), ActivitySwipImage.class);
+                    gridGallery.addFlags(gridGallery.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(gridGallery);
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+            Log.d("ArraySize", "" + ArraySize);
+        //}
+       // Log.d("ArraySizqw11e", "" + ArraySize);
     }
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -19,6 +19,7 @@ import all_action.iblaudas.JsonModel.ModelGallery;
 import all_action.iblaudas.R;
 
 public class GalleryGridViewAdapter extends BaseAdapter {
+	int var;
 	private Activity activity;
 	private LayoutInflater inflater;
 	private List<ModelGallery> arrayItems;
@@ -31,7 +32,7 @@ public class GalleryGridViewAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		SharedPreferences getGallery = activity.getSharedPreferences("GalleryImage", Context.MODE_PRIVATE);
-		int var = getGallery.getInt("Arraysize", 0);
+		var = getGallery.getInt("Arraysize", 0);
 
 		Log.e("DataItemwww", "" + var);
 		return var;
@@ -60,7 +61,9 @@ public class GalleryGridViewAdapter extends BaseAdapter {
         NetworkImageView thumbNail = (NetworkImageView) convertView
                 .findViewById(R.id.thumbnail_gridview);
         final ModelGallery m = arrayItems.get(position);
-        thumbNail.setImageUrl(m.getThumbImage(), imageLoader);
+		if(var!=0) {
+			thumbNail.setImageUrl(m.getThumbImage(), imageLoader);
+		}
 		//Log.d("Hello",m.getThumbImage());
         return convertView;
     }

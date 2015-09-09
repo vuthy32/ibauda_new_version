@@ -67,7 +67,6 @@ public class OrderCarListUser extends AppCompatActivity {
         SharedPreferences user = getSharedPreferences("userinfo", Context.MODE_PRIVATE);
         member_no = user.getString("member_no", DEFAULT);
         remember_token = user.getString("remember_token", DEFAULT);
-
         if (!member_no.equals("")){
             new MyCarOrder().execute();
         }else{

@@ -94,7 +94,7 @@ public class ImageHomeAdapterSqlite extends BaseAdapter {
             txt_newstatus.setVisibility(View.INVISIBLE);
            }
         TextView txtSaleOrReversed = (TextView)convertView.findViewById(R.id.txtReserved);
-        if(mRecords.getStatusReserved().equals("sale")){
+        if(mRecords.getStatusReserved().equals("sale") || mRecords.getStatusReserved().equals("shipok")){
             txtSaleOrReversed.setVisibility(View.INVISIBLE);
         }else{
             txtSaleOrReversed.setVisibility(View.VISIBLE);

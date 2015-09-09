@@ -186,14 +186,7 @@ public class FragmentDetailCar extends AppCompatActivity {
                 Log.d("obje",carFobCursdrent);
                 editerShare.commit();
             }
-
-
-
         }
-
-
-
-
     }
     /*
     * Initialize the tabs and set views and identifiers for the tabs

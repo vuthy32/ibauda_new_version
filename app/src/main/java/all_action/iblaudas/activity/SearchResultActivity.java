@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,12 +24,14 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import all_action.iblaudas.JsonModel.ModelHomeFragment;
 import all_action.iblaudas.R;
 import all_action.iblaudas.adapter.ImageHomeAdapter;
 import all_action.iblaudas.adapter.ImageHomeAdapterSqlite;
+import all_action.iblaudas.adapter.MyOrderAdapter;
 import all_action.iblaudas.json_url.UrlJsonLink;
 
 /**
@@ -45,8 +48,8 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<ModelHomeFragment> ArarryTestMake = new ArrayList<ModelHomeFragment>();
     //***************************************************************
 
-    private String KeyWordSearch;
-
+   private String KeyCountry,KeyMake,KeyModel,KeyMinPrice,KeyMaxPrice,KeyMinYear,KeyMaxYear,KeyChashno;
+    FrameLayout notresult;
     //**************Var String*************************
     private   String carFob;
 
@@ -66,12 +69,25 @@ public class SearchResultActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       notresult = (FrameLayout)findViewById(R.id.frmsearch);
+//        getLayoutInflater().inflate(R.layout.listview_layout, notresult);
         if (savedInstanceState==null)
-            Log.d("savedInstanceState","Null");
-        Intent getIntentSearch = this.getIntent();
-        KeyWordSearch = getIntentSearch.getStringExtra("search_data");
 
-        List<ModelHomeFragment> contactsCars = mydb.get_tag_Data(KeyWordSearch);
+
+            Log.d("savedInstanceState", "Null");
+        Intent getIntentSearch = this.getIntent();
+        KeyCountry = getIntentSearch.getStringExtra("COUNTRY");
+        KeyMake = getIntentSearch.getStringExtra("CAR_MAKE");
+        KeyModel = getIntentSearch.getStringExtra("CAR_MODEL");
+        KeyMinPrice = getIntentSearch.getStringExtra("MIN_PRICE");
+        KeyMaxPrice = getIntentSearch.getStringExtra("MAX_PRICE");
+        KeyMinYear = getIntentSearch.getStringExtra("MIN_YEAR");
+        KeyMaxYear = getIntentSearch.getStringExtra("MAX_YEAR");
+        KeyChashno = getIntentSearch.getStringExtra("CAR_CHASNO");
+
+        Log.e("dataSearch", "getCountry=" + KeyCountry + "makelist=" + KeyMake + "eModel=" + KeyModel +
+                "eminprice=" + KeyMinPrice + "emaxpric=" + KeyMaxPrice + "eninyear=" + KeyMinYear + "emaxyea=" + KeyMaxYear + "Chashno=" + KeyChashno);
+        List<ModelHomeFragment> contactsCars = mydb.get_tag_Data(KeyCountry,KeyMake,KeyModel,KeyMinPrice,KeyMaxPrice,KeyMinYear,KeyMaxYear,KeyChashno);
         for (ModelHomeFragment cn : contactsCars){
             ModelHomeFragment PhotoCar = new ModelHomeFragment();
             PhotoCar.setImageUrl(cn.getImageUrl());
@@ -98,11 +114,20 @@ public class SearchResultActivity extends AppCompatActivity {
             PhotoCar.setStatusReserved(cn.getStatusReserved());
             ArarryTestMake.add(PhotoCar);
         }
-        mAdapterSqlite = new ImageHomeAdapterSqlite(SearchResultActivity.this,ArarryTestMake);
+        if(ArarryTestMake.size()==0){
+            getLayoutInflater().inflate(R.layout.no_resault, notresult);
+            Log.e("Six",""+ArarryTestMake.size());
+        }else {
+            Log.e("Six", "" + ArarryTestMake.size());
+            getLayoutInflater().inflate(R.layout.listview_search, notresult);
+            mAdapterSqlite = new ImageHomeAdapterSqlite(SearchResultActivity.this, ArarryTestMake);
 //        //  Log.e("Adapter", ""+records.size());
-        gridviewMostView = (ListView)findViewById(R.id.listViewHome);
-        // set adapter grideview
-        gridviewMostView.setAdapter(mAdapterSqlite);
+            gridviewMostView = (ListView) findViewById(R.id.listViewHome);
+            // set adapter grideview
+            gridviewMostView.setAdapter(mAdapterSqlite);
+        }
+
+
 
 
 

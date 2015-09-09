@@ -38,11 +38,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     DatabaseHandler mydb;
     public static String PACKAGE_NAME;
     String title;
-
     MenuItem searchItem;
-
-
-
     private final String[] menuTitleslogin = {
             "Home",
             "My Order",

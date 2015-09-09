@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment{
         }
         mydb = new DatabaseHandler(getActivity());
 
-        //mydb.Myqery();
+       try{
         List<ModelHomeFragment> contactsCars = mydb.getAllCarData();
         if (contactsCars!=null) {
             for (ModelHomeFragment cn : contactsCars) {
@@ -138,6 +138,10 @@ public class HomeFragment extends Fragment{
         // set adapter grideview
         gridviewMostView.setAdapter(mAdapterSqlite);
         }
+
+       }catch(Exception e){
+            Log.e("TryTodownload",""+e.getMessage());
+       }
     }
 
 

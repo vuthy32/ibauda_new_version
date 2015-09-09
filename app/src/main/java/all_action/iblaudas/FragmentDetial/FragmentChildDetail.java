@@ -146,7 +146,7 @@ public class FragmentChildDetail extends Fragment implements View.OnClickListene
         Log.d("getShareCarCC", "" + getShareCarCC);
         TextView textViewEnginSize = (TextView)rootView.findViewById(R.id.EnGinSize);
         if (getShareCarCC!=null) {
-            if (!getShareCarCC.equals("0")) {
+            if (!getShareCarCC.equals("0") || !getShareCarCC.equals(null)) {
                 textViewEnginSize.setText(getShareCarCC);
             } else {
                 textViewEnginSize.setText("");

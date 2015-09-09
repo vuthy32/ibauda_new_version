@@ -36,7 +36,8 @@ import static all_action.iblaudas.Pushnotification.CommonUtilities.SENDER_ID;
  */
 public class SplaseScreen extends AppCompatActivity {
    private String PACKAG_PAHT;
-    private static String file_url = "http://iblauda.com/android/iblauda.sqlite";
+  //  private static String file_url = "http://iblauda.com/android/iblauda.sqlite";
+  private static String file_url = "http://iblauda.com/sqlite/iblauda.sqlite";
     /**
      * Called when the activity is first created.
      */
@@ -103,6 +104,7 @@ public class SplaseScreen extends AppCompatActivity {
             }
             Log.d("NumberPhoneID", "" + regId);
             //*******************************************************************************8
+            String TAG_INTERNET="CHECK INTERNET";
         }else{
             tv.setText("Please wait updating");
             Log.e("First Runing", " Runing AnyTime");
@@ -112,13 +114,15 @@ public class SplaseScreen extends AppCompatActivity {
                 Intent i = new Intent(SplaseScreen.this, MainActivity.class);
                 startActivity(i);
                 finish();
-            //Toast.makeText(this,"dfdf",Toast.LENGTH_SHORT).show();
+           Log.e("TAG_INTERNET","StartActivity");
         }else {
+//            Intent i = new Intent(SplaseScreen.this, MainActivity.class);
+//            startActivity(i);
+//            finish();
             new DownloadFileFromURL().execute(file_url);
+            Log.e("TAG_INTERNET", "Donwload");
        }
         //==========notification========
-
-
 
 
     }

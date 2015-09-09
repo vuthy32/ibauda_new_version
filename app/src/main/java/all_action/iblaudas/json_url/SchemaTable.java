@@ -6,8 +6,8 @@ package all_action.iblaudas.json_url;
 public class SchemaTable {
     public  static final String TABLE_CAR = "TBL_CAR";
     //*************************LIST VIEW CAR ***********************************
-
-    public  static final String SqlQueryDataListView="SELECT *  FROM TBL_CAR WHERE CAR_STATUS!='releaseok' ORDER BY  CASE CAR_STATUS  WHEN  'sale' THEN 1 WHEN 'reserved' THEN 2   WHEN 'order' THEN 3 WHEN 'soldout' THEN 4 WHEN 'releaseeok' THEN 5 END";
+   final String StrOrder = " ORDER BY  CASE CAR_STATUS  WHEN  'sale' THEN 1 WHEN 'shipok' THEN 2 WHEN 'reserved' THEN 3  WHEN 'order' THEN 4 WHEN 'soldout' THEN 5 WHEN 'releaseeok' THEN 6 END";
+    public  static final String SqlQueryDataListView="SELECT *  FROM TBL_CAR WHERE CAR_STATUS!='releaseok' ORDER BY  CASE CAR_STATUS  WHEN  'sale' THEN 1 WHEN 'shipok' THEN 2 WHEN 'reserved' THEN 3  WHEN 'order' THEN 4 WHEN 'soldout' THEN 5 WHEN 'releaseeok' THEN 6 END";
     public  static final String SqlQueryDataDetail
            = "SELECT * FROM TBL_CAR WHERE CAR_ID=";
     public static final String CAR_INDEX = "CAR_ID";
@@ -23,5 +23,12 @@ public class SchemaTable {
 
     public static final String CAR_CREATE_STATUS = "CAR_CREATE_STATUS";
     public static final String CAR_STATUS = "CAR_STATUS";
+    public static final String CAR_CHASSIS_NO = "CAR_CHASSIS_NO";
+    //*******************Country Table**********************************
+    public static final String QueryLocation="SELECT DISTINCT CAR_COUNTRY FROM TBL_CAR WHERE CAR_COUNTRY=\"KOREA\" OR CAR_COUNTRY=\"JAPAN\" AND CAR_COUNTRY!=\"\"";
+
+    //*******************Make Table**********************************
+    public static final String QueryMake="SELECT DISTINCT CAR_MAKE  FROM TBL_CAR";
+    public static final String QueryModel="SELECT DISTINCT CAR_MODEL  FROM TBL_CAR  WHERE CAR_MAKE=\"++\" GROUP BY CAR_MODEL";
 
 }
